@@ -18,6 +18,19 @@
     #site-description {
       margin: 20px; 
     }
+
+    /* Style for buttons */
+    .btn-custom {
+      background-color: white;
+      color: black;
+      border-color: blue;
+    }
+
+    .btn-custom.active {
+      background-color: blue;
+      color: white;
+      border-color: blue;
+    }
   </style>
 </head>
 
@@ -42,13 +55,13 @@
         </div>
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title">Buttons</h3>
+            <h3 class="panel-title">Tickers</h3>
             
           </div>
           <div id="sample-metadata" class="panel-body">
-            <button class="btn btn-primary btn-sm">Button 1</button>
-            <button class="btn btn-secondary btn-sm">Button 2</button>
-            <button class="btn btn-success btn-sm">Button 3</button>
+            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this)">Ticker 1</button>
+            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this)">Ticker 2</button>
+            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this)">Ticker 3</button>
           </div>
         </div>
         
@@ -93,6 +106,19 @@
     </tbody>
   </table>
 </div>
+
+<script>
+  function handleButtonClick(button) {
+    // Remove 'active' class from all buttons
+    var buttons = document.querySelectorAll('.btn-custom');
+    buttons.forEach(function (btn) {
+      btn.classList.remove('active');
+    });
+
+    // Add 'active' class to the clicked button
+    button.classList.add('active');
+  }
+</script>
 
 <style>
   /* Custom styles for the table */
