@@ -68,38 +68,31 @@
   </div>
 
 <!-- Place this code at the end of your HTML body, after the closing </div> tag of the previous content -->
-<table class="table table-bordered custom-table">
-  
-  <tbody>
-    <tr>
-      <td>Open</td>
-      <td>null</td>
-      <td>Mkt cap</td>
-      <td>null</td>
-      <td>CDP score</td>
-      <td>null</td>
-      
-    </tr>
-    <tr>
-      <td>High</td>
-      <td>null</td>
-      <td>P/E ratio</td>
-      <td>null</td>
-      <td>52-wk high</td>
-      <td>null</td>
-      
-    </tr>
-    <tr>
-      <td>Low</td>
-      <td>null</td>
-      <td>Div yield</td>
-      <td>null</td>
-      <td>52-wk low</td>
-      <td>null</td>
-      
-  
-  </tbody>
-</table>
+<div class="container">
+  <!-- Your table structure -->
+  <table class="table table-bordered custom-table table-fixed-width">
+    <tbody>
+      <tr>
+        <td>Open</td>
+        <td>null</td>
+        <td>CDP score</td>
+        <td>null</td>
+      </tr>
+      <tr>
+        <td>High</td>
+        <td>null</td>
+        <td>52-wk high</td>
+        <td>null</td>
+      </tr>
+      <tr>
+        <td>Low</td>
+        <td>null</td>
+        <td>52-wk low</td>
+        <td>null</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <style>
   /* Custom styles for the table */
@@ -108,7 +101,20 @@
     color: white;
     border-color: white;
   }
+
+  /* Set a fixed width for the table */
+  .table-fixed-width {
+    width: 400px; /* Adjust the width as per your preference */
+    margin: 0; /* Remove default margin */
+  }
+
+  /* Position the table to the left corner */
+  .container {
+    width: 100%; /* Full width of the viewport */
+    padding: 0 20px; /* Adjust as needed */
+  }
 </style>
+
 
 
   <script src="https://d3js.org/d3.v7.min.js"></script>
