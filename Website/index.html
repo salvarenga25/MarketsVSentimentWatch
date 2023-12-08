@@ -7,7 +7,6 @@
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="./static/js/logic.js"></script>
-  <script src="./static/js/bonus.js"></script>
   <html lang="en">
 
   <meta charset="UTF-8">
@@ -129,11 +128,11 @@
             <h3 class="panel-title">Tickers</h3>
           </div>
           <div id="sample-metadata" class="panel-body">
-            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this)">Ticker 1</button>
-            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this)">Ticker 2</button>
-            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this)">Ticker 3</button>
-            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this)">Ticker 4</button>
-            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this)">Ticker 5</button>
+            <button class="btn btn-custom btn-sm" onclick="optionChanged('AAL')">AAL</button>
+            <button class="btn btn-custom btn-sm" onclick="optionChanged('DAL')">COST</button>
+            <button class="btn btn-custom btn-sm" onclick="optionChanged(this)">Ticker 3</button>
+            <button class="btn btn-custom btn-sm" onclick="optionChanged(this)">Ticker 4</button>
+            <button class="btn btn-custom btn-sm" onclick="optionChanged(this)">Ticker 5</button>
           </div>
         </div>
       </div>
