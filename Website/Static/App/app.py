@@ -9,8 +9,7 @@ CORS(app) #Used so that js can access data from website
 #Dictonary to create the JSON
 data = []
 
-#Dictionary to store the ticker labels
-tickers=[]
+
  # CSV Files directories
 csv_file_path_AAL = "Resources/AAL_NASDAQ.csv"
 csv_file_path_COST = "Resources/COST_NASDAQ.csv"
@@ -50,15 +49,9 @@ def csv_to_json():
 
    
     #combined data and tickers
-    combined_data = {
-        "tickers":tickers,
-        "data":data
-    }
 
     # Convert to JSON
-
-
-    json_data = jsonify(combined_data)
+    json_data = jsonify(data)
     
 
     return json_data
@@ -69,8 +62,7 @@ def csv_to_json():
 def read_csv(file_path, TCKR):
     
     with open(file_path, "r") as file:
-        csv_reader = csv.DictReader(file)
-        tickers.append(TCKR)        
+        csv_reader = csv.DictReader(file)      
         for row in csv_reader:
             row["Ticker"] = TCKR
             data.append(row)
