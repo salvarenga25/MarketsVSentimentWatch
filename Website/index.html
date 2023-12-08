@@ -1,41 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+
+
+
 <head>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="./static/js/logic.js"></script>
+  <script src="./static/js/bonus.js"></script>
+  <html lang="en">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Market Sentiment</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
   <style>
     body {
       background-color: rgb(21, 83, 138);
-      color: black; 
+      color: black;
     }
-    
+
     #site-description {
-      margin: 20px; 
+      margin: 20px;
     }
+
     /* Style for buttons */
     .btn-custom {
       background-color: white;
       color: black;
       border-color: blue;
     }
+
     .btn-custom.active {
       background-color: blue;
       color: white;
       border-color: blue;
     }
+    
+    /* Custom styles for the table */
+    .custom-table {
+      background-color: black;
+      color: white;
+      border-color: white;
+    }
+
+    /* Set a fixed width for the table */
+    .table-fixed-width {
+      width: 400px; /* Adjust the width as per your preference */
+      margin: 0; /* Remove default margin */
+    }
+
+    /* Position the table to the left corner */
+    .container {
+      width: 100%; /* Full width of the viewport */
+      padding: 0 20px; /* Adjust as needed */
+    }
+
+    /* Bottom right section */
+    .bottom-right-section {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background-color: white;
+      color: black;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container1 {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container2 {
+      flex: 1;
+      display: auto;
+      margin-top: 0px;
+      margin-left: 400px;
+    }
+  
+
+    .container3 {
+      flex: 1;
+      margin-top: 20px;
+      
+    }
+
+ 
+
   </style>
 </head>
+
 <body>
+
   
-  <div class="container">
+
+
+
+
+  <div class="container1">
     <div class="row">
-      <div class="col-md-12 jumbotron text-center">
-        <h1>Market Sentiment vs  </h1>
+      <div class="col-md-12 jumbotron text-center" style="margin-top: 20px; padding: 10px;">
+        <h1>Market Sentiment vs </h1>
         <!-- Summary of the dashboard -->
-        <p>This project will help find the sentiment in selected years in the financial market.</p>
+        <p style="margin-bottom: 10px;">This project will help find the sentiment in selected years in the financial market.</p>
         <p>Use the interactive charts below to explore the dataset</p>
       </div>
     </div>
@@ -49,95 +127,91 @@
         <div class="panel panel-primary">
           <div class="panel-heading">
             <h3 class="panel-title">Tickers</h3>
-            
           </div>
           <div id="sample-metadata" class="panel-body">
             <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this)">Ticker 1</button>
             <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this)">Ticker 2</button>
             <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this)">Ticker 3</button>
+            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this)">Ticker 4</button>
+            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this)">Ticker 5</button>
           </div>
         </div>
+      </div>
+      
+
+      <!-- Container for the Historic 12-Month Run graph -->
+    <div class="container2">
+      <div class="row">
         
-      </div>
-      <div class="col-md-6">
-        <div id="Price_Time_Graph"></div>
-      </div>
-      <div class="col-md-4"> <!-- Adjusted column width -->
-        <div id="12Month_Graph"></div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div id="Open_Close_Prices"></div>
+        <div id="Historic_12_Month_Run" class="top-right-section" style="height: 350px;"></div>
+          <button class="btn btn-custom btn-sm time-button" onclick="updateGraph('1D')">1D</button>
+          <button class="btn btn-custom btn-sm time-button" onclick="updateGraph('5D')">5D</button>
+          <button class="btn btn-custom btn-sm time-button" onclick="updateGraph('1M')">1M</button>
+          <button class="btn btn-custom btn-sm time-button" onclick="updateGraph('6M')">6M</button>
+          <button class="btn btn-custom btn-sm time-button" onclick="updateGraph('1Y')">1Y</button>
+        </div>
       </div>
     </div>
+
+  
+
+  <div class="container3">
+    <!-- Your table structure -->
+    <table class="table table-bordered custom-table table-fixed-width">
+      <tbody>
+        <tr>
+          <td>Open</td>
+          <td>null</td>
+          <td>CDP score</td>
+          <td>null</td>
+        </tr>
+        <tr>
+          <td>High</td>
+          <td>null</td>
+          <td>52-wk high</td>
+          <td>null</td>
+        </tr>
+        <tr>
+          <td>Low</td>
+          <td>null</td>
+          <td>52-wk low</td>
+          <td>null</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-<!-- Place this code at the end of your HTML body, after the closing </div> tag of the previous content -->
-<div class="container">
-  <!-- Your table structure -->
-  <table class="table table-bordered custom-table table-fixed-width">
-    <tbody>
-      <tr>
-        <td>Open</td>
-        <td>null</td>
-        <td>CDP score</td>
-        <td>null</td>
-      </tr>
-      <tr>
-        <td>High</td>
-        <td>null</td>
-        <td>52-wk high</td>
-        <td>null</td>
-      </tr>
-      <tr>
-        <td>Low</td>
-        <td>null</td>
-        <td>52-wk low</td>
-        <td>null</td>
-      </tr>
-    </tbody>
-  </table>
+
+  <!-- Bottom right section with scrolling -->
+<div class="bottom-right-section" style="height: 200px; overflow-y: auto;">
+    <h3>Articles</h3>
+    <ul>
+      <li><strong>Article 1:</strong> Summary of article 1.</li>
+      <li><strong>Article 1:</strong> Link.</li>
+      <li><strong>Article 2:</strong> Summary of article 2.</li>
+      <li><strong>Article 2:</strong> Link.</li>
+      <li><strong>Article 3:</strong> Summary of article 3.</li>
+      <li><strong>Article 3:</strong> Link.</li>
+      <li><strong>Article 4:</strong> Summary of article 4.</li>
+      <li><strong>Article 5:</strong> Summary of article 5.</li>
+    </ul>
+  </div>
 </div>
-<script>
-  function handleButtonClick(button) {
-    // Remove 'active' class from all buttons
-    var buttons = document.querySelectorAll('.btn-custom');
-    buttons.forEach(function (btn) {
-      btn.classList.remove('active');
-    });
-    // Add 'active' class to the clicked button
-    button.classList.add('active');
-  }
-</script>
-<style>
-  /* Custom styles for the table */
-  .custom-table {
-    background-color: black;
-    color: white;
-    border-color: white;
-  }
-  /* Set a fixed width for the table */
-  .table-fixed-width {
-    width: 400px; /* Adjust the width as per your preference */
-    margin: 0; /* Remove default margin */
-  }
-  /* Position the table to the left corner */
-  .container {
-    width: 100%; /* Full width of the viewport */
-    padding: 0 20px; /* Adjust as needed */
-  }
-</style>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <!-- Script for the Historic 12-Month Run graph -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="./static/js/app.js"></script>
-  <script src="./static/js/bonus.js"></script>
-</body>
+
+  <script>
+
+  </script>
 
 
-  <!-- D3 JavaScript -->
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <!-- Our JavaScript -->
-  <script type="text/javascript" src="static/js/logic.js"></script>
+  <script>
+    function handleButtonClick(button) {
+      // Toggle 'active' class for the clicked button
+      button.classList.toggle('active');
+    }
+  </script>
+
+
 </body>
 
 </html>

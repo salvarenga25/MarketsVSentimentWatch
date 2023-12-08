@@ -1,0 +1,42 @@
+/* Custom styles for button */
+.btn-primary,
+.btn-secondary,
+.btn-success {
+  /* Set initial background color to white */
+  background-color: white;
+  /* Set initial text color to black */
+  color: black;
+}
+
+/* Custom styles for button when focused/active */
+.btn-primary:focus,
+.btn-primary:active,
+.btn-secondary:focus,
+.btn-secondary:active,
+.btn-success:focus,
+.btn-success:active {
+  /* Change background color to red when focused/active */
+  background-color: red; /* Change to your preferred color */
+  /* Change text color when focused/active */
+  color: white; /* Change to your preferred text color */
+}
+
+/* Custom styles for the table */
+.custom-table {
+    background-color: black; /* Set the background color to black */
+    color: white; /* Set text color to white */
+  }
+  
+  /* Custom styles for table header cells */
+  .custom-table th {
+    background-color: black; /* Set header background color to black */
+    color: white; /* Set header text color to white */
+    border-color: white; /* Set border color to white */
+  }
+  
+  /* Custom styles for table body cells */
+  .custom-table td {
+    border-color: white; /* Set border color to white */
+  }
+  
+  .container2 {width: min-content;}
