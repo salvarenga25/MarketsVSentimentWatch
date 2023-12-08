@@ -5,137 +5,67 @@ Tickers= []
 // Use d3.json() to load the JSON file
 d3.json(jsonFileURL).then(function(data) {
     // The ‘data’ variable now contains the parsed JSON data
-  
- data.forEach(function(data){
-    data.Close = parseFloat(data.Close)
-    data.Open = parseFloat(data.Close)
-    data.High = parseFloat(data.High)
-    data.Low = parseFloat(data.Low)
-    data.Volume = parseInt(data.Volume, 10)
+
+
+    data.forEach(function(data){
+        data.Close = parseFloat(data.Close)
+        data.Open = parseFloat(data.Open)
+        data.High = parseFloat(data.High)
+        data.Low = parseFloat(data.Low)
+        data.Volume = parseInt(data.Volume, 10)
+    
+
+    })
+
+
+ console.log(data)
+
+// const Search_Tckr = data.filter(function(ticker,TCKR_name){
+
+//     if(ticker.Ticker == TCKR_name & ticker.Date > "2023-01-01"){
+
+//         return ticker 
+
+//     }
+
+//     return
+
+    candlystick("DAL",data)
+    // candlystick("AAL",data)
+    
+
+
+
+
+
+
    
-
- })
-
-
-
-
-const AAL = data.filter(function(ticker){
-
-    if(ticker.Ticker == "AAL" & ticker.Date > "2023-01-01"){
-
-        return ticker 
-
-    }
-
-    return
-
-
-})
-
-// console.log(AAL)
-// console.log(data)
-
-
-
-    // Your dummy data for the graph (replace with your actual data)
-    Tickers_dates = [];
-    AAL_High= [];
-    AAL_Low= [];
-    AAL_Open = [];
-    AAL_Close= [];
     
-    for (let i =0; i < AAL.length; i++){
+    // for (let i =0; i < AAL.length; i++){
 
-        Tickers_dates.push(AAL[i].Date);
-        AAL_Close.push(AAL[i].Close);
-        AAL_Open.push(AAL[i].Open);
-        AAL_High.push(AAL[i].High);
-        AAL_Low.push(AAL[i].Low);
+    //     Tickers_dates.push(AAL[i].Date);
+    //     AAL_Close.push(AAL[i].Close);
+    //     AAL_Open.push(AAL[i].Open);
+    //     AAL_High.push(AAL[i].High);
+    //     AAL_Low.push(AAL[i].Low);
 
-        // console.log(AAL[i].dates)
+    //     // console.log(AAL[i].dates)
 
-    }
+    // }
 
-    // console.log(AAL_Close)
-    let dates =Tickers_dates;
-    // let prices = AAL_Close; // Values represent prices for each month
+    // // console.log(AAL_Close)
+    // let dates =Tickers_dates;
+    // // let prices = AAL_Close; // Values represent prices for each month
 
-console.log(dates);
+// console.log(dates);
  
-    //   // Create the Historic 12-Month Run graph
-    //   var layout = {
-    //     title: 'Historic 12-Month Run',
-    //     xaxis: {
-    //       title: 'Dates',
-    //     //   tickvals: Array.from({ length: 13 }, (_, i) => i), // Generate tickvals from 0 to 12 for 13 months
-    //       ticktext: dates
-    //     //   range: [0, 12] // Set the x-axis range to display 13 months
-    //     },
-    //     yaxis: {
-    //       title: 'Price',
-    //       range: [8, 20]
-    //     }
-    //   };
-  
-    //   var data = [{
-    //     x: dates, // Generate x values from 0 to 12 for 13 months
-    //     y: prices, // Assign your actual data for the y-axis
-    //     type: 'scatter',
-    //     // mode: 'lines',
-    //     // marker: { color: 'blue' }
-    //   }];
-    
-
-
-    // var trace2 = {
-    //     x: dates,
-    //     y:prices,
-    //     type:'scatter',
-    //     // text:filter_data2[0]["otu_labels"] ,
-    //     mode: 'markers',
-    
-    //   };
-
-    //   var data =[trace2];
-    //   var layout ={
-    //     title:'Title',
-
-    //   };
+ 
 
   
   
 
 
-    var trace = {
-        x:Tickers_dates,
-        close:AAL_Close,
-        high: AAL_High,
-        low: AAL_Low,
-        open: AAL_Open,
-      
-        // cutomise colors
-        increasing: {line: {color: 'black'}},
-        decreasing: {line: {color: 'red'}},
-      
-        type: 'candlestick',
-        xaxis: 'x',
-        yaxis: 'y'
-      };
-      
-      var data = [trace];
-      
-      var layout = {
-        dragmode: 'zoom',
-        showlegend: false,
-        xaxis: {
-          rangeslider: {
-               visible: false
-           }
-        }
-      };
 
-
-      Plotly.newPlot('Historic_12_Month_Run', data, layout);
 
 
 
@@ -155,6 +85,9 @@ console.log(dates);
         console.log('Updating graph for:', timePeriod);
       }
 
+      function handleButtonClick(arg){
+
+      }
 
 
 ////////////////////////////
@@ -190,17 +123,88 @@ Tickers.push(data[i]);
 
 
 
+function Ticker_Selection(TCKR){
+
+    if (data.ticker == TCKR){
+        return data
+    }
+
+
+}
 
 
 
+function candlystick(selectedvalue,data){
+    let filter_data2=data.filter((data) => data.Ticker==selectedvalue)
 
-function renderData(data) {
-    // Modify this function to render the data on your webpage as needed
-    // For example, you could update the DOM to display the data
+    // Your dummy data for the graph (replace with your actual data)
+    Tickers_dates = [];
+    Ticker_High= [];
+    Ticker_Low= [];
+    Ticker_Open = [];
+    Ticker_Close= [];
+
+    
+    for (let i =0; i < filter_data2.length; i++){
+
+        Tickers_dates.push(filter_data2[i].Date);
+        Ticker_Close.push(filter_data2[i].Close);
+        Ticker_Open.push(filter_data2[i].Open);
+        Ticker_High.push(filter_data2[i].High);
+        Ticker_Low.push(filter_data2[i].Low);
+
+        // console.log(AAL[i].dates)
+
+    }
+
+    var trace = {
+        x:Tickers_dates,
+        close:Ticker_Close,
+        high: Ticker_Open,
+        low: Ticker_High,
+        open: Ticker_Low,
+      
+        // cutomise colors
+        increasing: {line: {color: 'black'}},
+        decreasing: {line: {color: 'red'}},
+      
+        type: 'candlestick',
+        xaxis: 'x',
+        yaxis: 'y'
+      };
+      
+      var data = [trace];
+      
+      var layout = {
+        dragmode: 'zoom',
+        showlegend: false,
+        xaxis: {
+          rangeslider: {
+               visible: false
+           }
+        }
+      };
 
 
+      Plotly.newPlot('Historic_12_Month_Run', data, layout);
+
+}
+
+
+// Calling existing "optionChanged" function from HTML class to pass selected value through all my 3 functions (bubble,bar and dinfo functions)
+function optionChanged(selectedvalue){
+    console.log(selectedvalue)
   
-
-
-
+    d3.json(jsonFileURL).then((data) => {
+  
+  // Passing user selected value from the drop down and the data through each function to populate the graphs dynamically 
+   candlystick(selectedvalue, data)
+   
+  });
+  
+  
+  
+  
+  
+     
     }
