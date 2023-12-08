@@ -50,15 +50,15 @@ def csv_to_json():
 
    
     #combined data and tickers
-    combined_data = {
-        "tickers":tickers,
-        "data":data
-    }
+    # combined_data = {
+    #     "Tickers":tickers,
+    #     "Features":data
+    # }
 
     # Convert to JSON
 
 
-    json_data = jsonify(combined_data)
+    json_data = jsonify(data)
     
 
     return json_data
@@ -77,8 +77,6 @@ def read_csv(file_path, TCKR):
 
 
 #############################################
-
-
 if __name__ == "__main__":
     app.run(debug=True)
 
