@@ -1,7 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+
+
 
 <head>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="./static/js/logic.js"></script>
+  <script src="./static/js/bonus.js"></script>
+  <html lang="en">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -135,7 +143,7 @@
     <div class="container2">
       <div class="row">
         
-        <div id="Historic_12_Month_Run" class="top-right-section" style="height: 250px;"></div>
+        <div id="Historic_12_Month_Run" class="top-right-section" style="height: 350px;"></div>
           <button class="btn btn-custom btn-sm time-button" onclick="updateGraph('1D')">1D</button>
           <button class="btn btn-custom btn-sm time-button" onclick="updateGraph('5D')">5D</button>
           <button class="btn btn-custom btn-sm time-button" onclick="updateGraph('1M')">1M</button>
@@ -192,52 +200,7 @@
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
   <script>
-    // Your dummy data for the graph (replace with your actual data)
-    var dates = [
-      'Jan 2022', 'Feb 2022', 'Mar 2022', 'Apr 2022', 'May 2022', 'Jun 2022',
-      'Jul 2022', 'Aug 2022', 'Sep 2022', 'Oct 2022', 'Nov 2022', 'Dec 2022', 'Jan 2023'
-    ];
-    var prices = [ /* Add your data for 13 months here */ ]; // Values represent prices for each month
 
-    // Create the Historic 12-Month Run graph
-    var layout = {
-      title: 'Historic 12-Month Run',
-      xaxis: {
-        title: 'Dates',
-        tickvals: Array.from({ length: 13 }, (_, i) => i), // Generate tickvals from 0 to 12 for 13 months
-        ticktext: dates,
-        range: [0, 12] // Set the x-axis range to display 13 months
-      },
-      yaxis: {
-        title: 'Price',
-        range: [0, 1000]
-      }
-    };
-
-    var data = [{
-      x: Array.from({ length: 13 }, (_, i) => i), // Generate x values from 0 to 12 for 13 months
-      y: prices, // Assign your actual data for the y-axis
-      type: 'scatter',
-      mode: 'lines+markers',
-      marker: { color: 'blue' }
-    }];
-  
-    Plotly.newPlot('Historic_12_Month_Run', data, layout);
-
-
-    // Function to handle button clicks on the graph
-    document.querySelectorAll('.time-button').forEach(button => {
-      button.addEventListener('click', function() {
-        this.classList.toggle('active'); // Toggle 'active' class
-      });
-    });
-
-    // Function to update the graph data based on the selected time period
-    function updateGraph(timePeriod) {
-      // Add your logic here to update the graph data
-      // This function will be triggered when a button on the graph is clicked
-      console.log('Updating graph for:', timePeriod);
-    }
   </script>
 
 
@@ -248,10 +211,6 @@
     }
   </script>
 
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="./static/js/app.js"></script>
-  <script src="./static/js/bonus.js"></script>
 
 </body>
 
