@@ -18,47 +18,9 @@ d3.json(jsonFileURL).then(function(data) {
     })
 
 
- console.log(data)
+ console.log(data);
 
-// const Search_Tckr = data.filter(function(ticker,TCKR_name){
-
-//     if(ticker.Ticker == TCKR_name & ticker.Date > "2023-01-01"){
-
-//         return ticker 
-
-//     }
-
-//     return
-
-    candlystick("DAL",data)
-    // candlystick("AAL",data)
-    
-
-
-
-
-
-
-   
-    
-    // for (let i =0; i < AAL.length; i++){
-
-    //     Tickers_dates.push(AAL[i].Date);
-    //     AAL_Close.push(AAL[i].Close);
-    //     AAL_Open.push(AAL[i].Open);
-    //     AAL_High.push(AAL[i].High);
-    //     AAL_Low.push(AAL[i].Low);
-
-    //     // console.log(AAL[i].dates)
-
-    // }
-
-    // // console.log(AAL_Close)
-    // let dates =Tickers_dates;
-    // // let prices = AAL_Close; // Values represent prices for each month
-
-// console.log(dates);
- 
+    candlystick("COST",data)
  
 
   
@@ -123,14 +85,14 @@ Tickers.push(data[i]);
 
 
 
-function Ticker_Selection(TCKR){
+// function Ticker_Selection(TCKR){
 
-    if (data.ticker == TCKR){
-        return data
-    }
+//     if (data.ticker == TCKR){
+//         return data
+//     }
 
 
-}
+// }
 
 
 
