@@ -1,7 +1,7 @@
 
 const jsonFileURL = "http://127.0.0.1:5000/csv_to_json";
 
-Tickers= []
+currentTicker='COST'
 // Use d3.json() to load the JSON file
 d3.json(jsonFileURL).then(function(data) {
     // The ‘data’ variable now contains the parsed JSON data
@@ -20,7 +20,7 @@ d3.json(jsonFileURL).then(function(data) {
 
  console.log(data);
 
-    candlystick("COST",data)
+    candlystick(currentTicker,'1Y',data)
  
 
   
@@ -57,11 +57,11 @@ d3.json(jsonFileURL).then(function(data) {
 
 
     // Example: Display data in the console
-for (i=0; i < data.length; i++){
+// for (i=0; i < data.length; i++){
 
-Tickers.push(data[i]);
+// Tickers.push(data[i]);
 
-}
+// }
 
 //////////////////////
 
@@ -94,19 +94,42 @@ Tickers.push(data[i]);
 
 // }
 
+function dateChange(str){
+  // Your dummy data for the graph (replace with your actual data)
+  if(str == '1D'){
+   return '2023-11-28'
+  }
+  
+  else if(str == '5D'){
+  return '2023-11-23'
+  }
 
+  else if(str == '1M'){
+  return '2023-10-28' 
+  }
 
-function candlystick(selectedvalue,data){
-    let filter_data2=data.filter((data) => data.Ticker==selectedvalue)
-    if(selectedvalue == '1D'){}
-    // Your dummy data for the graph (replace with your actual data)
+  else if(str == '6M'){
+  return '2023-05-28'
+  }
+
+  else {
+  return '2022-11-28'
+  }
+
+}
+
+function candlystick(selectedvalue,dateRange, data){
+    let parDate = dateChange(dateRange);
+    let filter_data2=data.filter((data) => data.Ticker == selectedvalue && data.Date >= parDate)
+
     Tickers_dates = [];
     Ticker_High = [];
     Ticker_Low = [];
     Ticker_Open = [];
     Ticker_Close= [];
 
-    
+  
+    console.log(filter_data2)
     for (let i =0; i < filter_data2.length; i++){
 
         Tickers_dates.push(filter_data2[i].Date);
@@ -122,9 +145,9 @@ function candlystick(selectedvalue,data){
     var trace = {
         x:Tickers_dates,
         close:Ticker_Close,
-        high: Ticker_Open,
-        low: Ticker_High,
-        open: Ticker_Low,
+        high: Ticker_High,
+        low: Ticker_Low,
+        open: Ticker_Open,
       
         // cutomise colors
         increasing: {line: {color: 'black'}},
@@ -154,20 +177,21 @@ function candlystick(selectedvalue,data){
 
 
 // Calling existing "optionChanged" function from HTML class to pass selected value through all my 3 functions (bubble,bar and dinfo functions)
-function optionChanged(selectedvalue){
+function optionChanged(selectedvalue,dateStr){
     console.log(selectedvalue)
-  
+    currentTicker=selectedvalue
     d3.json(jsonFileURL).then((data) => {
   
   // Passing user selected value from the drop down and the data through each function to populate the graphs dynamically 
-   candlystick(selectedvalue, data)
+   candlystick(selectedvalue,dateStr, data)
    
   });
-
-  
      
-    }
+}
+function updateDate(dateStr){
+  d3.json(jsonFileURL).then((data) => {
 
-function updateDate(selectedValue){
-  console.log()
+  candlystick(currentTicker,dateStr, data)
+
+  });
 }
