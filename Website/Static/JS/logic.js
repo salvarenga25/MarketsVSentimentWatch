@@ -122,7 +122,7 @@ function candlystick(selectedvalue, data) {
       high: Ticker_High,
       low: Ticker_Low,
       close: Ticker_Close,
-      increasing: { line: { color: 'black' } },
+      increasing: { line: { color: 'green' } },
       decreasing: { line: { color: 'red' } },
       type: 'candlestick',
       xaxis: 'x',
@@ -161,9 +161,9 @@ function candlystick(selectedvalue, data) {
       marker: {
           color: Ticker_Close.map((close, i) => {
               if (i > 0) {
-                  return close >= Ticker_Close[i - 1] ? 'black' : 'red';
+                  return close >= Ticker_Close[i - 1] ? 'green' : 'red';
               }
-              return 'black';
+              return 'green';
           })
       }
   };
