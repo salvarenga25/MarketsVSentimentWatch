@@ -106,6 +106,12 @@ function candlystick(selectedvalue, data) {
   let Ticker_Open = [];
   let Ticker_Close = [];
   let Ticker_Volume = [];
+  //For table values
+  let Ticker_OpenPrice = [];
+  let Ticker_ClosePrice = [];
+  let Ticker_52high = [];
+  let Ticker_52low = [];
+
 
   for (let i = 0; i < filter_data2.length; i++) {
       Tickers_dates.push(filter_data2[i].Date);
