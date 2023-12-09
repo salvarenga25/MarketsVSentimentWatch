@@ -99,7 +99,6 @@ Tickers.push(data[i]);
 function candlystick(selectedvalue,data){
     let filter_data2=data.filter((data) => data.Ticker==selectedvalue)
 
-    // Your dummy data for the graph (replace with your actual data)
     Tickers_dates = [];
     Ticker_High= [];
     Ticker_Low= [];
@@ -143,8 +142,11 @@ function candlystick(selectedvalue,data){
         xaxis: {
           rangeslider: {
                visible: false
-           }
-        }
+            }
+          },
+          title: {
+              text: `Candlestick Chart for ${selectedvalue}` // Title based on selected ticker
+          }
       };
 
 
