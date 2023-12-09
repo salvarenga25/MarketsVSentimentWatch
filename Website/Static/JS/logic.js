@@ -98,11 +98,11 @@ Tickers.push(data[i]);
 
 function candlystick(selectedvalue,data){
     let filter_data2=data.filter((data) => data.Ticker==selectedvalue)
-
+    if(selectedvalue == '1D'){}
     // Your dummy data for the graph (replace with your actual data)
     Tickers_dates = [];
-    Ticker_High= [];
-    Ticker_Low= [];
+    Ticker_High = [];
+    Ticker_Low = [];
     Ticker_Open = [];
     Ticker_Close= [];
 
@@ -163,10 +163,11 @@ function optionChanged(selectedvalue){
    candlystick(selectedvalue, data)
    
   });
-  
-  
-  
-  
+
   
      
     }
+
+function updateDate(selectedValue){
+  console.log()
+}
