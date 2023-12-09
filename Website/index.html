@@ -231,6 +231,15 @@
     // Toggle 'active' class for the clicked button
     button.classList.toggle('active');
   }
+
+  // Function to set the "COST" button as active initially
+  function setActiveButton() {
+      const costButton = document.querySelector('.btn-custom:nth-child(2)'); // Selects the second button
+      handleButtonClick(costButton);
+  }
+
+  // Triggering the setActiveButton function after the document has loaded
+  document.addEventListener('DOMContentLoaded', setActiveButton);
 </script>
 
 
