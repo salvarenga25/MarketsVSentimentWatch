@@ -51,81 +51,91 @@ d3.json(jsonFileURL).then(function(data) {
 });
 
 function candlystick(selectedvalue, data) {
-    let filter_data2 = data.filter((data) => data.Ticker == selectedvalue);
+  let filter_data2 = data.filter((data) => data.Ticker == selectedvalue);
 
-    let Tickers_dates = [];
-    let Ticker_High = [];
-    let Ticker_Low = [];
-    let Ticker_Open = [];
-    let Ticker_Close = [];
-    let Ticker_Volume = [];
+  let Tickers_dates = [];
+  let Ticker_High = [];
+  let Ticker_Low = [];
+  let Ticker_Open = [];
+  let Ticker_Close = [];
+  let Ticker_Volume = [];
 
-    for (let i = 0; i < filter_data2.length; i++) {
-        Tickers_dates.push(filter_data2[i].Date);
-        Ticker_Close.push(filter_data2[i].Close);
-        Ticker_Open.push(filter_data2[i].Open);
-        Ticker_High.push(filter_data2[i].High);
-        Ticker_Low.push(filter_data2[i].Low);
-        Ticker_Volume.push(filter_data2[i].Volume);
-    }
+  for (let i = 0; i < filter_data2.length; i++) {
+      Tickers_dates.push(filter_data2[i].Date);
+      Ticker_Close.push(filter_data2[i].Close);
+      Ticker_Open.push(filter_data2[i].Open);
+      Ticker_High.push(filter_data2[i].High);
+      Ticker_Low.push(filter_data2[i].Low);
+      Ticker_Volume.push(filter_data2[i].Volume);
+  }
 
-    var trace = {
-        x: Tickers_dates,
-        open: Ticker_Open,
-        high: Ticker_High,
-        low: Ticker_Low,
-        close: Ticker_Close,
-        increasing: { line: { color: 'black' } },
-        decreasing: { line: { color: 'red' } },
-        type: 'candlestick',
-        xaxis: 'x',
-        yaxis: 'y',
-        name: 'Candlestick'
-    };
+  var trace = {
+      x: Tickers_dates,
+      open: Ticker_Open,
+      high: Ticker_High,
+      low: Ticker_Low,
+      close: Ticker_Close,
+      increasing: { line: { color: 'black' } },
+      decreasing: { line: { color: 'red' } },
+      type: 'candlestick',
+      xaxis: 'x',
+      yaxis: 'y',
+      name: 'Candlestick'
+  };
 
-    // Candlestick chart
-    var dataCandlestick = [trace];
+  // Candlestick chart
+  var dataCandlestick = [trace];
 
-    var layout = {
-        dragmode: 'zoom',
-        showlegend: true,
-        legend: {
-            x: 0,
-            y: 1,
-            orientation: 'h'
-        },
-        xaxis: {
-            rangeslider: {
-                visible: false
-            }
-        },
-        title: {
-            text: `Candlestick Chart for ${selectedvalue}`
-        }
-    };
+  var layout = {
+      dragmode: 'zoom',
+      showlegend: true,
+      legend: {
+          x: 0,
+          y: 1,
+          orientation: 'h'
+      },
+      xaxis: {
+          rangeslider: {
+              visible: false
+          }
+      },
+      title: {
+          text: `Candlestick Chart for ${selectedvalue}`
+      }
+  };
 
-    // Volume chart
-    var traceVolume = {
-        x: Tickers_dates,
-        y: Ticker_Volume,
-        type: 'bar',
-        yaxis: 'y2',
-        name: 'Volume'
-    };
+  // Volume chart
+  var traceVolume = {
+      x: Tickers_dates,
+      y: Ticker_Volume,
+      type: 'bar',
+      yaxis: 'y2',
+      name: 'Volume',
+      marker: {
+          color: Ticker_Close.map((close, i) => {
+              if (i > 0) {
+                  return close >= Ticker_Close[i - 1] ? 'black' : 'red';
+              }
+              return 'black';
+          })
+      }
+  };
 
-    var dataVolume = [traceVolume];
+  var dataVolume = [traceVolume];
 
-    var layoutVolume = {
-        yaxis2: {
-            title: 'Volume',
-            overlaying: 'y',
-            side: 'right'
-        }
-    };
+  var layoutVolume = {
+      yaxis2: {
+          title: 'Volume',
+          overlaying: 'y',
+          side: 'right'
+      }
+  };
 
-    Plotly.newPlot('Historic_12_Month_Run', dataCandlestick, layout);
-    Plotly.newPlot('volumeChart', dataVolume, layoutVolume);
+  Plotly.newPlot('Historic_12_Month_Run', dataCandlestick, layout);
+  Plotly.newPlot('volumeChart', dataVolume, layoutVolume);
 }
+
+
 
 // Calling existing "optionChanged" function from HTML class to pass selected value through all my 3 functions (bubble,bar and dinfo functions)
 function optionChanged(selectedvalue) {
