@@ -99,10 +99,22 @@
     }
 
       /* Style for the article list images */
+    #article-list li {
+      display: flex; /* Use flexbox for layout */
+      align-items: flex-start; /* Align items to the top */
+      margin-bottom: 20px; /* Add margin for spacing between items */
+    }
+
     #article-list img {
-      max-width: 30%; /* Set maximum width to fit the container */
-      height: 30%; /* Maintain aspect ratio */
-      margin-bottom: 10px; /* Add margin for spacing */
+      max-width: 15%; /* Set maximum width for images */
+      height: 15%; /* Maintain aspect ratio */
+      margin-right: 20px; /* Add margin between image and text */
+    }
+
+    #article-list h4,
+    #article-list p,
+    #article-list a {
+      margin: 0; /* Remove default margin for text elements */
     }
 
  
