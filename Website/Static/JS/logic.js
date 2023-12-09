@@ -1,5 +1,6 @@
 
 const jsonFileURL = "http://127.0.0.1:5000/csv_to_json";
+const json_news = "http://127.0.0.1:5000/Ticker_News";
 
 Tickers= []
 // Use d3.json() to load the JSON file
@@ -155,20 +156,91 @@ function candlystick(selectedvalue,data){
 }
 
 
+
 // Calling existing "optionChanged" function from HTML class to pass selected value through all my 3 functions (bubble,bar and dinfo functions)
-function optionChanged(selectedvalue){
-    console.log(selectedvalue)
-  
-    d3.json(jsonFileURL).then((data) => {
-  
-  // Passing user selected value from the drop down and the data through each function to populate the graphs dynamically 
-   candlystick(selectedvalue, data)
-   
+function optionChanged(selectedvalue) {
+  d3.json(jsonFileURL).then((data) => {
+      // Passing user selected value from the drop down and the data through each function to populate the graphs dynamically 
+      candlystick(selectedvalue, data);
   });
+
+  d3.json(json_news).then((newsdata) => {
+      // Passing user selected value from the drop down and the data through each function to populate the graphs dynamically 
+      tickernews(selectedvalue, newsdata);
+  });
+}
+    /////////////////////////////////////////
+
+// // Tickers= []
+// let Article_Title = []
+// let Article_Summarys = []
+// let Article_URL = []
+// // Use d3.json() to load the JSON file
+// d3.json(json_news).then(function(data) {
+//     // The ‘data’ variable now contains the parsed JSON data
+//     for(let i=0; i< data.length; i++) {
+
+//       Article_Title.push(data[i]["Title"]);
+//       Article_Summarys.push(data[i]["Summary"]);
+//       Article_URL.push(data[i]["URL"]);
   
-  
-  
-  
-  
-     
+
+//     }
+
+//     const existingArticleList = d3.select("#article-list");
+
+//     // Append titles and summaries to the existing article list
+//     for (let i = 0; i < Article_Title.length; i++) {
+//       const listItem = existingArticleList.append("li");
+//       const link = listItem.append("a").attr("href", Article_URL[i]).attr("target", "_blank").text(`${Article_Title[i]}: `);
+//       listItem.append("span").text(Article_Summarys[i]);
+//   }
+
+//     console.log(data)
+
+
+
+// })
+
+
+
+    /////////////////////////////////////////
+
+    function tickernews(selectedvalue, data_news) {
+      
+      // Clear existing articles before populating with new data
+      d3.select("#article-list").html("");
+    
+      let Article_Title = [];
+      let Article_Summarys = [];
+      let Article_URL = [];
+      let Ticker = [];
+    
+      // Uncomment and adjust the filter condition as needed
+      let filter_news = data_news.filter((data_news) => data_news["Ticker_name"] === selectedvalue);
+      
+      // Move the console.log outside the loop to see the entire array
+      console.log(Article_Title);
+    
+      for (let i = 0; i < filter_news.length; i++) {
+        Article_Title.push(filter_news[i]["Title"]);
+        Ticker.push(filter_news[i]["Ticker_name"]);
+        Article_Summarys.push(filter_news[i]["Summary"]);
+        Article_URL.push(filter_news[i]["URL"]);
+      }
+        const existingArticleList = d3.select("#article-list");
+        // Add your logic for appending articles to the existing article list if needed
+
+           // Append titles and summaries to the existing article list
+      for (let i = 0; i < Article_Title.length; i++) {
+          const listItem = existingArticleList.append("li");
+          const link = listItem.append("a").attr("href", Article_URL[i]).attr("target", "_blank").text(`${Article_Title[i]}: `);
+          listItem.append("span").text(Article_Summarys[i]);
+      }
+
+
+
+
+      
     }
+    
