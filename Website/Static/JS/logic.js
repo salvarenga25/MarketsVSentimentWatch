@@ -120,11 +120,11 @@ function candlystick(selectedvalue,data){
     }
 
     var trace = {
-        x:Tickers_dates,
-        close:Ticker_Close,
-        high: Ticker_Open,
-        low: Ticker_High,
-        open: Ticker_Low,
+        x: Tickers_dates,
+        open: Ticker_Open,
+        high: Ticker_High,
+        low: Ticker_Low,
+        close: Ticker_Close,
       
         // cutomise colors
         increasing: {line: {color: 'black'}},
