@@ -97,62 +97,89 @@ Tickers.push(data[i]);
 
 
 
-function candlystick(selectedvalue,data){
-    let filter_data2=data.filter((data) => data.Ticker==selectedvalue)
+function candlystick(selectedvalue, data) {
+  let filter_data2 = data.filter((data) => data.Ticker == selectedvalue);
 
-    Tickers_dates = [];
-    Ticker_High= [];
-    Ticker_Low= [];
-    Ticker_Open = [];
-    Ticker_Close= [];
+  let Tickers_dates = [];
+  let Ticker_High = [];
+  let Ticker_Low = [];
+  let Ticker_Open = [];
+  let Ticker_Close = [];
+  let Ticker_Volume = [];
 
-    
-    for (let i =0; i < filter_data2.length; i++){
+  for (let i = 0; i < filter_data2.length; i++) {
+      Tickers_dates.push(filter_data2[i].Date);
+      Ticker_Close.push(filter_data2[i].Close);
+      Ticker_Open.push(filter_data2[i].Open);
+      Ticker_High.push(filter_data2[i].High);
+      Ticker_Low.push(filter_data2[i].Low);
+      Ticker_Volume.push(filter_data2[i].Volume);
+  }
 
-        Tickers_dates.push(filter_data2[i].Date);
-        Ticker_Close.push(filter_data2[i].Close);
-        Ticker_Open.push(filter_data2[i].Open);
-        Ticker_High.push(filter_data2[i].High);
-        Ticker_Low.push(filter_data2[i].Low);
+  var trace = {
+      x: Tickers_dates,
+      open: Ticker_Open,
+      high: Ticker_High,
+      low: Ticker_Low,
+      close: Ticker_Close,
+      increasing: { line: { color: 'black' } },
+      decreasing: { line: { color: 'red' } },
+      type: 'candlestick',
+      xaxis: 'x',
+      yaxis: 'y',
+      name: 'Candlestick'
+  };
 
-        // console.log(AAL[i].dates)
+  // Candlestick chart
+  var dataCandlestick = [trace];
 
-    }
-
-    var trace = {
-        x: Tickers_dates,
-        open: Ticker_Open,
-        high: Ticker_High,
-        low: Ticker_Low,
-        close: Ticker_Close,
-      
-        // cutomise colors
-        increasing: {line: {color: 'black'}},
-        decreasing: {line: {color: 'red'}},
-      
-        type: 'candlestick',
-        xaxis: 'x',
-        yaxis: 'y'
-      };
-      
-      var data = [trace];
-      
-      var layout = {
-        dragmode: 'zoom',
-        showlegend: false,
-        xaxis: {
+  var layout = {
+      dragmode: 'zoom',
+      showlegend: true,
+      legend: {
+          x: 0,
+          y: 1,
+          orientation: 'h'
+      },
+      xaxis: {
           rangeslider: {
-               visible: false
-            }
-          },
-          title: {
-              text: `Candlestick Chart for ${selectedvalue}` // Title based on selected ticker
+              visible: false
           }
-      };
+      },
+      title: {
+          text: `Candlestick Chart for ${selectedvalue}`
+      }
+  };
 
+  // Volume chart
+  var traceVolume = {
+      x: Tickers_dates,
+      y: Ticker_Volume,
+      type: 'bar',
+      yaxis: 'y2',
+      name: 'Volume',
+      marker: {
+          color: Ticker_Close.map((close, i) => {
+              if (i > 0) {
+                  return close >= Ticker_Close[i - 1] ? 'black' : 'red';
+              }
+              return 'black';
+          })
+      }
+  };
 
-      Plotly.newPlot('Historic_12_Month_Run', data, layout);
+  var dataVolume = [traceVolume];
 
+  var layoutVolume = {
+      yaxis2: {
+          title: 'Volume',
+          overlaying: 'y',
+          side: 'right'
+      }
+  };
+
+  Plotly.newPlot('Historic_12_Month_Run', dataCandlestick, layout);
+  Plotly.newPlot('volumeChart', dataVolume, layoutVolume);
 }
 
 
