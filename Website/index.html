@@ -17,7 +17,7 @@
 
   <style>
     body {
-      background-color: rgb(21, 83, 138);
+      background-color: rgb(56, 57, 61);
       color: black;
     }
 
@@ -58,14 +58,16 @@
     }
 
     /* Bottom right section */
-    .bottom-right-section {
-      position: fixed;
+    .article-section {
       bottom: 10px;
       right: 10px;
       background-color: white;
       color: black;
       padding: 10px;
       border-radius: 5px;
+      height: 200px;
+      overflow-y: auto;
+      margin-top: 20px; /* Added margin-top to create space below the table */
     }
 
     body {
@@ -85,13 +87,14 @@
       flex: 1;
       display: auto;
       margin-top: 0px;
-      margin-left: 400px;
+      margin-left: 320px;
     }
   
 
     .container3 {
       flex: 1;
       margin-top: 20px;
+      margin-left: 290px;
       
     }
 
@@ -113,43 +116,41 @@
         <h1>Market Sentiment vs </h1>
         <!-- Summary of the dashboard -->
         <p style="margin-bottom: 10px;">This project will help find the sentiment in selected years in the financial market.</p>
-        <p>Use the interactive charts below to explore the dataset</p>
       </div>
     </div>
     <div class="row">
       <div class="col-md-2">
-        <div class="well">
-          <h5>Significant Financial Years:</h5>
+        <!-- <div class="well">
+          <h5>Significant Financial Years:</h5> -->
           <!--Replace "selDataset" with name of actual data set to pull from-->
-          <select id="selDataset" onchange="optionChanged(this.value)"></select>
-        </div>
+          <!-- <select id="selDataset" onchange="optionChanged(this.value)"></select>
+        </div> -->
         <div class="panel panel-primary">
           <div class="panel-heading">
             <h3 class="panel-title">Tickers</h3>
           </div>
           <div id="sample-metadata" class="panel-body">
-            <button class="btn btn-custom btn-sm" onclick="optionChanged('AAL','1Y')">AAL</button>
-            <button class="btn btn-custom btn-sm" onclick="optionChanged('COST','1Y')">COST</button>
-            <button class="btn btn-custom btn-sm" onclick="optionChanged('DAL','1Y')">DAL</button>
-            <button class="btn btn-custom btn-sm" onclick="optionChanged('WMT','1Y')">WMT</button>
-            <button class="btn btn-custom btn-sm" onclick="optionChanged('SP500','1Y')">S&P500</button>
-            <button class="btn btn-custom btn-sm" onclick="optionChanged('NASDAQ','1Y')">NASDAQ</button>
-            <button class="btn btn-custom btn-sm" onclick="optionChanged('NYSE','1Y')">NYSE</button>
+            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this); optionChanged('AAL','1Y')">AAL</button>
+            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this); optionChanged('COST','1Y')">COST</button>
+            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this); optionChanged('DAL','1Y')">DAL</button>
+            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this); optionChanged('WMT','1Y')">WMT</button>
+            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this); optionChanged('SP500','1Y')">S&P500</button>
+            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this); optionChanged('NASDAQ','1Y')">NASDAQ</button>
+            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this); optionChanged('NYSE','1Y')">NYSE</button>
           </div>
         </div>
       </div>
       
-
       <!-- Container for the Historic 12-Month Run graph -->
-    <div class="container2">
-      <div class="row">
-        
-        <div id="Historic_12_Month_Run" class="top-right-section" style="height: 350px;"></div>
-          <button class="btn btn-custom btn-sm time-button" onclick="updateDate('1D')">1D</button>
-          <button class="btn btn-custom btn-sm time-button" onclick="updateDate('5D')">5D</button>
-          <button class="btn btn-custom btn-sm time-button" onclick="updateDate('1M')">1M</button>
-          <button class="btn btn-custom btn-sm time-button" onclick="updateDate('6M')">6M</button>
-          <button class="btn btn-custom btn-sm time-button" onclick="updateDate('1Y')">1Y</button>
+      <div class="container2">
+        <div class="row">
+          <div id="Historic_12_Month_Run" class="top-right-section" style="width: 1200px; height: 350px;"></div>
+          <div id="volumeChart" style="width: 1200px; height: 350px;"></div>
+          <button class="btn btn-custom btn-sm time-button" onclick="handleButtonClick(this); updateDate('1D')">1D</button>
+          <button class="btn btn-custom btn-sm time-button" onclick="handleButtonClick(this); updateDate('5D')">5D</button>
+          <button class="btn btn-custom btn-sm time-button" onclick="handleButtonClick(this); updateDate('1M')">1M</button>
+          <button class="btn btn-custom btn-sm time-button" onclick="handleButtonClick(this); updateDate('6M')">6M</button>
+          <button class="btn btn-custom btn-sm time-button" onclick="handleButtonClick(this); updateDate('1Y')">1Y</button>
         </div>
       </div>
     </div>
@@ -183,18 +184,11 @@
   </div>
 
   <!-- Bottom right section with scrolling -->
-<div class="bottom-right-section" style="height: 200px; overflow-y: auto;">
-    <h3>Articles</h3>
-    <ul>
-      <li><strong>Article 1:</strong> Summary of article 1.</li>
-      <li><strong>Article 1:</strong> Link.</li>
-      <li><strong>Article 2:</strong> Summary of article 2.</li>
-      <li><strong>Article 2:</strong> Link.</li>
-      <li><strong>Article 3:</strong> Summary of article 3.</li>
-      <li><strong>Article 3:</strong> Link.</li>
-      <li><strong>Article 4:</strong> Summary of article 4.</li>
-      <li><strong>Article 5:</strong> Summary of article 5.</li>
-    </ul>
+<div class="article-section">
+  <h3>Articles</h3>
+  <ul id="article-list">
+      <!-- Existing list items here -->
+  </ul>
   </div>
 </div>
   <!-- Script for the Historic 12-Month Run graph -->
@@ -205,12 +199,42 @@
   </script>
 
 
-  <script>
-    function handleButtonClick(button) {
-      // Toggle 'active' class for the clicked button
-      button.classList.toggle('active');
+<script>
+  function handleButtonClick(button) {
+    // Check if the button is a time-button
+    if (button.classList.contains('time-button')) {
+      // Get all buttons with the class 'time-button'
+      const timeButtons = document.querySelectorAll('.time-button');
+      // Loop through each time button and remove the 'active' class
+      timeButtons.forEach(btn => {
+        if (btn !== button) {
+          btn.classList.remove('active');
+        }
+      });
+    } else {
+      // Get all buttons with the class 'btn-custom'
+      const customButtons = document.querySelectorAll('.btn-custom');
+      // Loop through each custom button and remove the 'active' class
+      customButtons.forEach(btn => {
+        if (btn !== button) {
+          btn.classList.remove('active');
+        }
+      });
     }
-  </script>
+
+    // Toggle 'active' class for the clicked button
+    button.classList.toggle('active');
+  }
+
+  // Function to set the "COST" button as active initially
+  function setActiveButton() {
+      const costButton = document.querySelector('.btn-custom:nth-child(2)'); // Selects the second button
+      handleButtonClick(costButton);
+  }
+
+  // Triggering the setActiveButton function after the document has loaded
+  document.addEventListener('DOMContentLoaded', setActiveButton);
+</script>
 
 
 </body>
