@@ -2,7 +2,7 @@
 const jsonFileURL = "http://127.0.0.1:5000/csv_to_json";
 const json_news = "http://127.0.0.1:5000/Ticker_News";
 
-Tickers= []
+let currentTicker='COST'
 // Use d3.json() to load the JSON file
 d3.json(jsonFileURL).then(function(data) {
     // The ‘data’ variable now contains the parsed JSON data
@@ -21,7 +21,7 @@ d3.json(jsonFileURL).then(function(data) {
 
  console.log(data);
 
-    candlystick("COST",data)
+    candlystick(currentTicker,'1Y',data)
  
 
   
@@ -58,11 +58,11 @@ d3.json(jsonFileURL).then(function(data) {
 
 
     // Example: Display data in the console
-for (i=0; i < data.length; i++){
+// for (i=0; i < data.length; i++){
 
-Tickers.push(data[i]);
+// Tickers.push(data[i]);
 
-}
+// }
 
 //////////////////////
 
@@ -95,10 +95,33 @@ Tickers.push(data[i]);
 
 // }
 
+function dateChange(str){
+  // Your dummy data for the graph (replace with your actual data)
+  if(str == '1D'){
+   return '2023-11-28'
+  }
+  
+  else if(str == '5D'){
+  return '2023-11-23'
+  }
 
+  else if(str == '1M'){
+  return '2023-10-28' 
+  }
 
-function candlystick(selectedvalue, data) {
-  let filter_data2 = data.filter((data) => data.Ticker == selectedvalue);
+  else if(str == '6M'){
+  return '2023-05-28'
+  }
+
+  else {
+  return '2022-11-28'
+  }
+
+}
+
+function candlystick(selectedvalue,dateRange, data){
+    let parDate = dateChange(dateRange);
+    let filter_data2=data.filter((data) => data.Ticker == selectedvalue && data.Date >= parDate)
 
   let Tickers_dates = [];
   let Ticker_High = [];
@@ -111,9 +134,10 @@ function candlystick(selectedvalue, data) {
   let Ticker_ClosePrice = [];
   let Ticker_52high = [];
   let Ticker_52low = [];
-  let Ticker_50DayMA = []; // Array to hold 5-day moving average data
-  let Ticker_200DayMA = []; // Array to hold 5-day moving average data
 
+  
+    console.log(filter_data2)
+    for (let i =0; i < filter_data2.length; i++){
 
   for (let i = 0; i < filter_data2.length; i++) {
       Tickers_dates.push(filter_data2[i].Date);
@@ -145,7 +169,12 @@ function candlystick(selectedvalue, data) {
 
   var layout = {
       dragmode: 'zoom',
-      showlegend: false,
+      showlegend: true,
+      legend: {
+          x: 0,
+          y: 1,
+          orientation: 'h'
+      },
       xaxis: {
           rangeslider: {
               visible: false
@@ -262,10 +291,12 @@ function candlystick(selectedvalue, data) {
 
 
 // Calling existing "optionChanged" function from HTML class to pass selected value through all my 3 functions (bubble,bar and dinfo functions)
-function optionChanged(selectedvalue) {
+function optionChanged(selectedvalue,dateStr) {
+  console.log(selectedvalue)
+  currentTicker=selectedvalue
   d3.json(jsonFileURL).then((data) => {
       // Passing user selected value from the drop down and the data through each function to populate the graphs dynamically 
-      candlystick(selectedvalue, data);
+      candlystick(selectedvalue,dateStr, data)
   });
 
   d3.json(json_news).then((newsdata) => {
@@ -339,10 +370,9 @@ function optionChanged(selectedvalue) {
         const existingArticleList = d3.select("#article-list");
         // Add your logic for appending articles to the existing article list if needed
 
-    // Append titles, summaries, and images to the existing article list
-    for (let i = 0; i < Article_Title.length; i++) {
-        const listItem = existingArticleList.append("li");
-
+           // Append titles and summaries to the existing article list
+      for (let i = 0; i < Article_Title.length; i++) {
+          const listItem = existingArticleList.append("li");
         // Create an image element
         const image = listItem.append("img")
         .attr("src", Article_Image[i]) // Set image source to URL from JSON data
@@ -368,5 +398,10 @@ function optionChanged(selectedvalue) {
        // .style("display", "block") // Set the display to block for new line
         .text("Read more"); // Set the link text
   }
-}
+
+
+
+    }
+      
+    }
     
