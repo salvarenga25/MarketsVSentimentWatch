@@ -248,6 +248,7 @@ function optionChanged(selectedvalue) {
       let Article_Summarys = [];
       let Article_URL = [];
       let Ticker = [];
+      let Article_Image=[];
     
       // Uncomment and adjust the filter condition as needed
       let filter_news = data_news.filter((data_news) => data_news["Ticker_name"] === selectedvalue);
@@ -260,20 +261,35 @@ function optionChanged(selectedvalue) {
         Ticker.push(filter_news[i]["Ticker_name"]);
         Article_Summarys.push(filter_news[i]["Summary"]);
         Article_URL.push(filter_news[i]["URL"]);
+
+        //code to add image 
+        Article_Image.push(filter_news[i]["Banner_Image"])
       }
         const existingArticleList = d3.select("#article-list");
         // Add your logic for appending articles to the existing article list if needed
 
-           // Append titles and summaries to the existing article list
-      for (let i = 0; i < Article_Title.length; i++) {
-          const listItem = existingArticleList.append("li");
-          const link = listItem.append("a").attr("href", Article_URL[i]).attr("target", "_blank").text(`${Article_Title[i]}: `);
-          listItem.append("span").text(Article_Summarys[i]);
-      }
+    // Append titles, summaries, and images to the existing article list
+    for (let i = 0; i < Article_Title.length; i++) {
+        const listItem = existingArticleList.append("li");
 
+        // Create an image element
+        const image = listItem.append("img")
+        .attr("src", Article_Image[i]) // Set image source to URL from JSON data
+        .attr("alt", "Article Image"); // Set alternative text for the image
 
+        // Create a title element
+        listItem.append("h4")
+        .text(Article_Title[i]); // Set the title text
 
+        // Create a summary element
+        listItem.append("p")
+        .text(Article_Summarys[i]); // Set the summary text
 
-      
-    }
+        // Create a link element
+        const link = listItem.append("a")
+        .attr("href", Article_URL[i]) // Set the link href to URL from JSON data
+        .attr("target", "_blank") // Open link in a new tab
+        .text("Read more"); // Set the link text
+  }
+}
     
