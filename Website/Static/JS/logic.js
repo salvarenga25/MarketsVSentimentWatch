@@ -277,18 +277,24 @@ function optionChanged(selectedvalue) {
         .attr("src", Article_Image[i]) // Set image source to URL from JSON data
         .attr("alt", "Article Image"); // Set alternative text for the image
 
+        // Create a div for text content
+        const textDiv = listItem.append("div").style("display", "inline-block").style("vertical-align", "top");
+
+
         // Create a title element
-        listItem.append("h4")
+        textDiv.append("h4")
+        .style("font-weight", "bold") // Set title font-weight to bold
         .text(Article_Title[i]); // Set the title text
 
         // Create a summary element
-        listItem.append("p")
+        textDiv.append("p")
         .text(Article_Summarys[i]); // Set the summary text
 
         // Create a link element
-        const link = listItem.append("a")
+        const link = textDiv.append("a")
         .attr("href", Article_URL[i]) // Set the link href to URL from JSON data
         .attr("target", "_blank") // Open link in a new tab
+       // .style("display", "block") // Set the display to block for new line
         .text("Read more"); // Set the link text
   }
 }
