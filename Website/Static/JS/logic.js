@@ -141,12 +141,7 @@ function candlystick(selectedvalue, data) {
 
   var layout = {
       dragmode: 'zoom',
-      showlegend: true,
-      legend: {
-          x: 0,
-          y: 1,
-          orientation: 'h'
-      },
+      showlegend: false,
       xaxis: {
           rangeslider: {
               visible: false
