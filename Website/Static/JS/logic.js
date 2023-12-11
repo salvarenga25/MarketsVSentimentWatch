@@ -155,7 +155,7 @@ function candlystick(selectedvalue, data) {
   
       
   };
-
+  //50-Day Moving Average
   var trace50DayMA = {
     x: Tickers_dates,
     y: Ticker_50DayMA, // Plotting 5-day moving average on the same x-axis as dates
@@ -167,8 +167,6 @@ function candlystick(selectedvalue, data) {
     },
     name: '50-Day Moving Average'
   };
-
-  var dataWithMA = [trace50DayMA]; // Combine candlestick trace with 5-day MA trace
 
   var layoutMA = {
     yaxis2: {
@@ -204,7 +202,8 @@ function candlystick(selectedvalue, data) {
       }
   };
   dataCandlestick.push(trace50DayMA);
-  // Combine layout for both candlestick and volume
+
+  // Combine layout for both candlestick and moving average
   var layoutCombined = Object.assign({}, layout, layoutMA);
 
 
