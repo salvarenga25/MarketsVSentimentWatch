@@ -240,7 +240,7 @@ function candlystick(selectedvalue, data) {
 
   // Move the legend above the graph
   layoutCombined.legend = {
-    x: 0.1,
+    x: 0.2,
     y: 1.15,
     orientation: 'h',
     xanchor: 'center',
