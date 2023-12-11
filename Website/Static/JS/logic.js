@@ -190,8 +190,16 @@ function candlystick(selectedvalue, data) {
   };
 
   var layoutMA200 = {
-    yaxis2: {
+    showlegend:true,
+    legend: {
+      x: 0,
+      y: 1,
+      orientation: 'h'
+  },
+
+    yaxis2: {  
         overlaying: 'y'
+        
     }
 };
 
