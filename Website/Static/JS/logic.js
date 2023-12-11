@@ -238,6 +238,22 @@ function candlystick(selectedvalue, data) {
   // Combine layout for both candlestick and moving average
   var layoutCombined = Object.assign({}, layout, layoutMA,layoutMA200);
 
+  // Move the legend above the graph
+  layoutCombined.legend = {
+    x: 0.1,
+    y: 1.15,
+    orientation: 'h',
+    xanchor: 'center',
+    yanchor: 'bottom'
+  };
+
+  // Add margin to accommodate the legend above the graph
+  // layoutCombined.margin = {
+  //   t: 60, // Adjust top margin to provide space for the legend
+  //   b: 50, // You may adjust the other margins as needed
+  //   l: 50,
+  //   r: 50
+  // };
 
   Plotly.newPlot('Historic_12_Month_Run', dataCandlestick, layoutCombined);
   Plotly.newPlot('volumeChart', dataVolume, layoutVolume);
