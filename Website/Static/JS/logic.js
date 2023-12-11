@@ -123,17 +123,17 @@ function candlystick(selectedvalue,dateRange, data){
     let parDate = dateChange(dateRange);
     let filter_data2=data.filter((data) => data.Ticker == selectedvalue && data.Date >= parDate)
 
-    let Tickers_dates = [];
-    let Ticker_High = [];
-    let Ticker_Low = [];
-    let Ticker_Open = [];
-    let Ticker_Close= [];
-    let Ticker_Volume = [];
-    //For table values
-    let Ticker_OpenPrice = [];
-    let Ticker_ClosePrice = [];
-    let Ticker_52high = [];
-    let Ticker_52low = [];
+  let Tickers_dates = [];
+  let Ticker_High = [];
+  let Ticker_Low = [];
+  let Ticker_Open = [];
+  let Ticker_Close = [];
+  let Ticker_Volume = [];
+  //For table values
+  let Ticker_OpenPrice = [];
+  let Ticker_ClosePrice = [];
+  let Ticker_52high = [];
+  let Ticker_52low = [];
 
   
     console.log(filter_data2)
@@ -146,6 +146,8 @@ function candlystick(selectedvalue,dateRange, data){
       Ticker_High.push(filter_data2[i].High);
       Ticker_Low.push(filter_data2[i].Low);
       Ticker_Volume.push(filter_data2[i].Volume);
+      Ticker_50DayMA.push(filter_data2[i]["50_Day_MA"]); // Assuming the field name is "50_Day_MA"
+      Ticker_200DayMA.push(filter_data2[i]["200_Day_MA"]); // Assuming the field name is "200_Day_MA"
   }
 
   var trace = {
@@ -165,33 +167,15 @@ function candlystick(selectedvalue,dateRange, data){
   // Candlestick chart
   var dataCandlestick = [trace];
 
-    var trace = {
-        x:Tickers_dates,
-        close:Ticker_Close,
-        high: Ticker_High,
-        low: Ticker_Low,
-        open: Ticker_Open,
-      
-        // cutomise colors
-        increasing: {line: {color: 'black'}},
-        decreasing: {line: {color: 'red'}},
-      
-        type: 'candlestick',
-        xaxis: 'x',
-        yaxis: 'y'
-      };
-      
-      var data = [trace];
-      
-      var layout = {
-        dragmode: 'zoom',
-        showlegend: false,
-        legend:{
-          x:0,
-          y:1,
-          orientation:'h'
-        },
-        xaxis: {
+  var layout = {
+      dragmode: 'zoom',
+      showlegend: true,
+      legend: {
+          x: 0,
+          y: 1,
+          orientation: 'h'
+      },
+      xaxis: {
           rangeslider: {
               visible: false
           }
@@ -199,7 +183,55 @@ function candlystick(selectedvalue,dateRange, data){
       title: {
           text: `Candlestick Chart for ${selectedvalue}`
       }
+  
+      
   };
+  //50-Day Moving Average
+  var trace50DayMA = {
+    x: Tickers_dates,
+    y: Ticker_50DayMA, // Plotting 5-day moving average on the same x-axis as dates
+    type: 'scatter',
+    mode: 'lines',
+    line: {
+      color: 'blue', // Adjust the color as needed
+      width: 1
+    },
+    name: '50-Day Moving Average'
+  };
+
+  var layoutMA = {
+    yaxis2: {
+        overlaying: 'y'
+    }
+};
+
+  //200-Day Moving Average
+  var trace200DayMA = {
+    x: Tickers_dates,
+    y: Ticker_200DayMA, // Plotting 200-day moving average on the same x-axis as dates
+    type: 'scatter',
+    mode: 'lines',
+    line: {
+      color: 'purple', // Adjust the color as needed
+      width: 1
+    },
+    name: '200-Day Moving Average'
+  };
+
+  var layoutMA200 = {
+    showlegend:true,
+    legend: {
+      x: 0,
+      y: 1,
+      orientation: 'h'
+  },
+
+    yaxis2: {  
+        overlaying: 'y'
+        
+    }
+};
+
 
   // Volume chart
   var traceVolume = {
@@ -225,10 +257,34 @@ function candlystick(selectedvalue,dateRange, data){
           title: 'Volume',
           overlaying: 'y',
           side: 'right'
-      }
+      },
+      title: {
+        text: `Stock Volume for ${selectedvalue}`
+    }
+  };
+  dataCandlestick.push(trace50DayMA,trace200DayMA);
+
+  // Combine layout for both candlestick and moving average
+  var layoutCombined = Object.assign({}, layout, layoutMA,layoutMA200);
+
+  // Move the legend above the graph
+  layoutCombined.legend = {
+    x: 0.2,
+    y: 1.15,
+    orientation: 'h',
+    xanchor: 'center',
+    yanchor: 'bottom'
   };
 
-  Plotly.newPlot('Historic_12_Month_Run', dataCandlestick, layout);
+  // Add margin to accommodate the legend above the graph
+  // layoutCombined.margin = {
+  //   t: 60, // Adjust top margin to provide space for the legend
+  //   b: 50, // You may adjust the other margins as needed
+  //   l: 50,
+  //   r: 50
+  // };
+
+  Plotly.newPlot('Historic_12_Month_Run', dataCandlestick, layoutCombined);
   Plotly.newPlot('volumeChart', dataVolume, layoutVolume);
 }
 
@@ -294,6 +350,7 @@ function optionChanged(selectedvalue,dateStr) {
       let Article_Summarys = [];
       let Article_URL = [];
       let Ticker = [];
+      let Article_Image=[];
     
       // Uncomment and adjust the filter condition as needed
       let filter_news = data_news.filter((data_news) => data_news["Ticker_name"] === selectedvalue);
@@ -306,6 +363,9 @@ function optionChanged(selectedvalue,dateStr) {
         Ticker.push(filter_news[i]["Ticker_name"]);
         Article_Summarys.push(filter_news[i]["Summary"]);
         Article_URL.push(filter_news[i]["URL"]);
+
+        //code to add image 
+        Article_Image.push(filter_news[i]["Banner_Image"])
       }
         const existingArticleList = d3.select("#article-list");
         // Add your logic for appending articles to the existing article list if needed
@@ -313,22 +373,35 @@ function optionChanged(selectedvalue,dateStr) {
            // Append titles and summaries to the existing article list
       for (let i = 0; i < Article_Title.length; i++) {
           const listItem = existingArticleList.append("li");
-          const link = listItem.append("a").attr("href", Article_URL[i]).attr("target", "_blank").text(`${Article_Title[i]}: `);
-          listItem.append("span").text(Article_Summarys[i]);
-      }
+        // Create an image element
+        const image = listItem.append("img")
+        .attr("src", Article_Image[i]) // Set image source to URL from JSON data
+        .attr("alt", "Article Image"); // Set alternative text for the image
+
+        // Create a div for text content
+        const textDiv = listItem.append("div").style("display", "inline-block").style("vertical-align", "top");
+
+
+        // Create a title element
+        textDiv.append("h4")
+        .style("font-weight", "bold") // Set title font-weight to bold
+        .text(Article_Title[i]); // Set the title text
+
+        // Create a summary element
+        textDiv.append("p")
+        .text(Article_Summarys[i]); // Set the summary text
+
+        // Create a link element
+        const link = textDiv.append("a")
+        .attr("href", Article_URL[i]) // Set the link href to URL from JSON data
+        .attr("target", "_blank") // Open link in a new tab
+       // .style("display", "block") // Set the display to block for new line
+        .text("Read more"); // Set the link text
+  }
 
 
 
-
+    }
       
     }
-
-
-  function updateDate(dateStr){
-    d3.json(jsonFileURL).then((data) => {
-  
-    candlystick(currentTicker,dateStr, data)
-  
-    });
-  }
-  }
+    
