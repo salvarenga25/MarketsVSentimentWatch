@@ -112,6 +112,7 @@ function candlystick(selectedvalue, data) {
   let Ticker_52high = [];
   let Ticker_52low = [];
   let Ticker_50DayMA = []; // Array to hold 5-day moving average data
+  let Ticker_200DayMA = []; // Array to hold 5-day moving average data
 
 
   for (let i = 0; i < filter_data2.length; i++) {
@@ -122,6 +123,7 @@ function candlystick(selectedvalue, data) {
       Ticker_Low.push(filter_data2[i].Low);
       Ticker_Volume.push(filter_data2[i].Volume);
       Ticker_50DayMA.push(filter_data2[i]["50_Day_MA"]); // Assuming the field name is "50_Day_MA"
+      Ticker_200DayMA.push(filter_data2[i]["200_Day_MA"]); // Assuming the field name is "200_Day_MA"
   }
 
   var trace = {
@@ -174,6 +176,25 @@ function candlystick(selectedvalue, data) {
     }
 };
 
+  //200-Day Moving Average
+  var trace200DayMA = {
+    x: Tickers_dates,
+    y: Ticker_200DayMA, // Plotting 200-day moving average on the same x-axis as dates
+    type: 'scatter',
+    mode: 'lines',
+    line: {
+      color: 'purple', // Adjust the color as needed
+      width: 1
+    },
+    name: '50-Day Moving Average'
+  };
+
+  var layoutMA200 = {
+    yaxis2: {
+        overlaying: 'y'
+    }
+};
+
 
   // Volume chart
   var traceVolume = {
@@ -201,10 +222,10 @@ function candlystick(selectedvalue, data) {
           side: 'right'
       }
   };
-  dataCandlestick.push(trace50DayMA);
+  dataCandlestick.push(trace50DayMA,trace200DayMA);
 
   // Combine layout for both candlestick and moving average
-  var layoutCombined = Object.assign({}, layout, layoutMA);
+  var layoutCombined = Object.assign({}, layout, layoutMA,layoutMA200);
 
 
   Plotly.newPlot('Historic_12_Month_Run', dataCandlestick, layoutCombined);
