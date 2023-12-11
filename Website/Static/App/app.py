@@ -61,12 +61,21 @@ def csv_to_json():
 
 # Creating a function to read the CSV files 
 def read_csv(file_path, TCKR):
+   
     
     with open(file_path, "r") as file:
-        csv_reader = csv.DictReader(file)      
+        csv_reader = csv.DictReader(file)     
+        close_prices = [] 
         for row in csv_reader:
             row["Ticker"] = TCKR
+            close_prices.append(float(row["Close"]))
+            # Calculate 50-day moving average
+            if len(close_prices) >= 50:
+                row["50_Day_MA"] = sum(close_prices[-50:]) / 50
+            else:
+                row["50_Day_MA"] = None
             data.append(row)
+            
 
 
 #############################################
