@@ -74,6 +74,12 @@ def read_csv(file_path, TCKR):
                 row["50_Day_MA"] = sum(close_prices[-50:]) / 50
             else:
                 row["50_Day_MA"] = None
+            
+            # Calculate 200-day moving average
+            if len(close_prices) >= 200:
+                row["200_Day_MA"] = sum(close_prices[-200:]) / 200
+            else:
+                row["200_Day_MA"] = None
             data.append(row)
             
 
