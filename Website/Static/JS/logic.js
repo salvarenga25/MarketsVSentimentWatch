@@ -186,7 +186,7 @@ function candlystick(selectedvalue, data) {
       color: 'purple', // Adjust the color as needed
       width: 1
     },
-    name: '50-Day Moving Average'
+    name: '200-Day Moving Average'
   };
 
   var layoutMA200 = {
@@ -228,7 +228,10 @@ function candlystick(selectedvalue, data) {
           title: 'Volume',
           overlaying: 'y',
           side: 'right'
-      }
+      },
+      title: {
+        text: `Stock Volume for ${selectedvalue}`
+    }
   };
   dataCandlestick.push(trace50DayMA,trace200DayMA);
 
