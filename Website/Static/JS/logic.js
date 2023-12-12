@@ -94,25 +94,33 @@ d3.json(json_news).then((newsdata) => {
 // }
 
 function dateChange(str){
-  // Your dummy data for the graph (replace with your actual data)
+  // Number of working days returned in maxLength were calculated in timeanddate.com
   if(str == '1D'){
+    maxLength = 1;
    return '2023-11-28'
   }
   
   else if(str == '5D'){
+  maxLength = 3;
   return '2023-11-23'
   }
 
   else if(str == '1M'){
+  maxLength = 20;
   return '2023-10-28' 
   }
 
   else if(str == '6M'){
+  maxLength = 125;
   return '2023-05-28'
+  
   }
 
-  else {
+  else { 
+  maxLength = 253;
   return '2022-11-28'
+  
+  
   }
 
 }
@@ -135,7 +143,7 @@ function candlystick(selectedvalue,dateRange, data){
 
   
   console.log(filter_data2)
-  
+
   for (let i = 0; i < maxLength; i++) {
       Tickers_dates.push(filter_data2[i].Date);
       Ticker_Close.push(filter_data2[i].Close);
