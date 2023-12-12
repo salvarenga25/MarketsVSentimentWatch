@@ -39,7 +39,7 @@ d3.json(jsonFileURL).then(function(data) {
       //   console.log('Updating graph for:', timePeriod);
       // }
 
-      // function handleButtonClick(arg){
+      //function handleButtonClick(arg){
 
       // }
 
@@ -377,3 +377,10 @@ function optionChanged(selectedvalue) {
   }
 }
     
+function updateDate(dateStr){
+  d3.json(jsonFileURL).then((data) => {
+
+  candlystick(currentTicker,dateStr, data)
+
+  });
+}
