@@ -280,10 +280,13 @@
     button.classList.toggle('active');
   }
 
-  // Function to set the "COST" button as active initially
+  // Function to set the "AAL" button as active initially
   function setActiveButton() {
-      const costButton = document.querySelector('.btn-custom:nth-child(2)'); // Selects the second button
-      handleButtonClick(costButton);
+      const AALButton = document.querySelector('.btn-custom:nth-child(1)'); // Selects the first button
+      handleButtonClick(AALButton);
+
+      const oneYearButton = document.querySelector('.time-button:nth-child(5)'); // Selects the fifth button with class 'time-button' (1Y button)
+      handleButtonClick(oneYearButton);
   }
 
   // Triggering the setActiveButton function after the document has loaded
