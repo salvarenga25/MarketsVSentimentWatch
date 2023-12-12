@@ -126,11 +126,8 @@ function candlystick(selectedvalue,dateRange, data){
   let Ticker_Open = [];
   let Ticker_Close = [];
   let Ticker_Volume = [];
-  //For table values
-  let Ticker_OpenPrice = [];
-  let Ticker_ClosePrice = [];
-  let Ticker_52high = [];
-  let Ticker_52low = [];
+
+
   let Ticker_50DayMA = []; // Array to hold 5-day moving average data
   let Ticker_200DayMA = []; // Array to hold 5-day moving average data
 

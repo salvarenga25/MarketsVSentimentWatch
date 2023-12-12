@@ -97,10 +97,10 @@ def Ticker_News():
     },  
     
     {"Ticker_name": "AAL",
-        "Title": "American Airlines asks US court to overturn ruling barring JetBlue alliance",
-        "Summary": "An American Airlines Airbus A321-200 plane takes off from Los Angeles International airport ( LAX ) in Los Angeles, California, U.S. March 28, 2018. REUTERS/Mike Blake//File Photo Acquire Licensing Rights",
+        "Title": "American Airlines earnings outlook disappoints, shares fall",
+        "Summary": "July 20 (Reuters) - Shares of American Airlines (AAL.O) fell on Thursday as its outlook for the second half of the year disappointed investors even as the company lifted its full-year profit forecast and posted higher-than-expected quarterly earnings.",
         "Banner_Image": "https://www.reuters.com/resizer/g29itIUTwOH1wQeUSGZJpo98cCQ=/960x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/IV5XYNI4W5MFHNZBLJD3F5PE5M.jpg",
-        "URL": "https://www.reuters.com/business/aerospace-defense/american-airlines-asks-us-court-overturn-ruling-barring-jetblue-alliance-2023-12-07/"
+        "URL": "https://www.reuters.com/business/aerospace-defense/american-airlines-raises-2023-profit-forecast-travel-boom-2023-07-20/"
 
     },
 
