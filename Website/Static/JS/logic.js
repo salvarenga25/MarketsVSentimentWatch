@@ -2,7 +2,8 @@
 const jsonFileURL = "http://127.0.0.1:5000/csv_to_json";
 const json_news = "http://127.0.0.1:5000/Ticker_News";
 
-let currentTicker='COST'
+//global variable
+let currentTicker='AAL'
 // Use d3.json() to load the JSON file
 d3.json(jsonFileURL).then(function(data) {
     // The ‘data’ variable now contains the parsed JSON data
@@ -21,18 +22,7 @@ d3.json(jsonFileURL).then(function(data) {
 
  console.log(data);
 
-    candlystick(currentTicker,'1Y',data)
- 
-
-  
-  
-
-
-
-
-
-
-
+    candlystick(currentTicker,'1Y',data);
 
       // Function to handle button clicks on the graph
       document.querySelectorAll('.time-button').forEach(button => {
@@ -42,11 +32,11 @@ d3.json(jsonFileURL).then(function(data) {
       });
   
       // Function to update the graph data based on the selected time period
-      function updateGraph(timePeriod) {
+     // function updateGraph(timePeriod) {
         // Add your logic here to update the graph data
         // This function will be triggered when a button on the graph is clicked
-        console.log('Updating graph for:', timePeriod);
-      }
+     //   console.log('Updating graph for:', timePeriod);
+     // }
 
       function handleButtonClick(arg){
 
@@ -134,11 +124,12 @@ function candlystick(selectedvalue,dateRange, data){
   let Ticker_ClosePrice = [];
   let Ticker_52high = [];
   let Ticker_52low = [];
+  let Ticker_50DayMA = []; // Array to hold 5-day moving average data
+  let Ticker_200DayMA = []; // Array to hold 5-day moving average data
+
 
   
     console.log(filter_data2)
-    for (let i =0; i < filter_data2.length; i++){
-
   for (let i = 0; i < filter_data2.length; i++) {
       Tickers_dates.push(filter_data2[i].Date);
       Ticker_Close.push(filter_data2[i].Close);
@@ -304,44 +295,8 @@ function optionChanged(selectedvalue,dateStr) {
       tickernews(selectedvalue, newsdata);
   });
 }
-    /////////////////////////////////////////
 
-// // Tickers= []
-// let Article_Title = []
-// let Article_Summarys = []
-// let Article_URL = []
-// // Use d3.json() to load the JSON file
-// d3.json(json_news).then(function(data) {
-//     // The ‘data’ variable now contains the parsed JSON data
-//     for(let i=0; i< data.length; i++) {
-
-//       Article_Title.push(data[i]["Title"]);
-//       Article_Summarys.push(data[i]["Summary"]);
-//       Article_URL.push(data[i]["URL"]);
-  
-
-//     }
-
-//     const existingArticleList = d3.select("#article-list");
-
-//     // Append titles and summaries to the existing article list
-//     for (let i = 0; i < Article_Title.length; i++) {
-//       const listItem = existingArticleList.append("li");
-//       const link = listItem.append("a").attr("href", Article_URL[i]).attr("target", "_blank").text(`${Article_Title[i]}: `);
-//       listItem.append("span").text(Article_Summarys[i]);
-//   }
-
-//     console.log(data)
-
-
-
-// })
-
-
-
-    /////////////////////////////////////////
-
-    function tickernews(selectedvalue, data_news) {
+function tickernews(selectedvalue, data_news) {
       
       // Clear existing articles before populating with new data
       d3.select("#article-list").html("");
@@ -402,6 +357,14 @@ function optionChanged(selectedvalue,dateStr) {
 
 
     }
+
       
+  
+    function updateDate(dateStr){
+      d3.json(jsonFileURL).then((data) => {
+    
+      candlystick(currentTicker,dateStr, data)
+    
+      });
     }
     

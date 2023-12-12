@@ -89,7 +89,6 @@ def read_csv(file_path, TCKR):
 def Ticker_News():
 
     Ticker_Dict_AAL = [
-    
      {"Ticker_name": "AAL",
         "Title": "CWA-IBT Association Reaches Agreement with American Airlines",
         "Summary": "FORT WORTH, Texas, Dec. 7, 2023 /PRNewswire/ -- The Communications Workers of America ( CWA ) -International Brotherhood of Teamsters ( IBT ) Association has reached a tentative agreement with American Airlines on a new five-year contract covering approximately 16,000 passenger service agents.",
@@ -190,17 +189,6 @@ def Ticker_News():
         "Summary": "A rally in megacaps spurred a rebound in stocks on speculation the artificial-intelligence boom will keep fueling market gains.",
         "Banner_Image": "https://www.bnnbloomberg.ca/polopoly_fs/1.2008774!/fileimage/httpImage/image.png_gen/derivatives/default/chart.png",
         "URL": "https://www.bnnbloomberg.ca/markets-today-wall-street-s-ai-craze-drives-nasdaq-100-up-1-5-1.2008275"},
-
-
-
-
-
-
-
-
-
-
-
 
 
 ]
