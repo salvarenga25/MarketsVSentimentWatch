@@ -22,7 +22,9 @@ d3.json(jsonFileURL).then(function(data) {
 
 
  console.log(data);
-//ADD ,'1Y'
+
+//////////////////ADD ,'1Y'
+
  candlystick(currentTicker,data);
  // Function to handle button clicks on the graph
  document.querySelectorAll('.time-button').forEach(button => {
@@ -107,8 +109,9 @@ function dateChange(str){
 }
 
 
-
+///////////add dateRange
 function candlystick(selectedvalue, data) {
+  //////////////////let parDate = dateChange(dateRange);
   let filter_data2 = data.filter((data) => data.Ticker == selectedvalue);
 
   let Tickers_dates = [];
