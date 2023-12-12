@@ -4,6 +4,7 @@ const json_news = "http://127.0.0.1:5000/Ticker_News";
 
 //global variable
 let currentTicker='AAL'
+let maxLength = 253; //Stock Market is closed on weekends, so there are roughly 253 working days left in a year
 // Use d3.json() to load the JSON file
 d3.json(jsonFileURL).then(function(data) {
     // The ‘data’ variable now contains the parsed JSON data
@@ -93,32 +94,40 @@ d3.json(json_news).then((newsdata) => {
 // }
 
 function dateChange(str){
-  // Your dummy data for the graph (replace with your actual data)
+  // Number of working days returned in maxLength were calculated in timeanddate.com
   if(str == '1D'){
+    maxLength = 1;
    return '2023-11-28'
   }
   
   else if(str == '5D'){
+  maxLength = 3;
   return '2023-11-23'
   }
 
   else if(str == '1M'){
+  maxLength = 20;
   return '2023-10-28' 
   }
 
   else if(str == '6M'){
+  maxLength = 125;
   return '2023-05-28'
+  
   }
 
-  else {
+  else { 
+  maxLength = 253;
   return '2022-11-28'
+  
+  
   }
 
 }
 
 function candlystick(selectedvalue,dateRange, data){
-    let parDate = dateChange(dateRange);
-    let filter_data2=data.filter((data) => data.Ticker == selectedvalue && data.Date >= parDate)
+  let parDate = dateChange(dateRange);
+  let filter_data2=data.filter((data) => data.Ticker == selectedvalue && data.Date >= parDate)
 
   let Tickers_dates = [];
   let Ticker_High = [];
@@ -133,8 +142,9 @@ function candlystick(selectedvalue,dateRange, data){
 
 
   
-    console.log(filter_data2)
-  for (let i = 0; i < filter_data2.length; i++) {
+  console.log(filter_data2)
+
+  for (let i = 0; i < maxLength; i++) {
       Tickers_dates.push(filter_data2[i].Date);
       Ticker_Close.push(filter_data2[i].Close);
       Ticker_Open.push(filter_data2[i].Open);
@@ -144,6 +154,9 @@ function candlystick(selectedvalue,dateRange, data){
       Ticker_50DayMA.push(filter_data2[i]["50_Day_MA"]); // Assuming the field name is "50_Day_MA"
       Ticker_200DayMA.push(filter_data2[i]["200_Day_MA"]); // Assuming the field name is "200_Day_MA"
   }
+
+  //Check if filter_data2.length is too big
+  console.log("Filtered length is this long", filter_data2.length);
 
   var trace = {
       x: Tickers_dates,
