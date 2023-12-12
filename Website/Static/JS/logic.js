@@ -9,7 +9,6 @@ d3.json(jsonFileURL).then(function(data) {
     // The ‘data’ variable now contains the parsed JSON data
 
 
-
     data.forEach(function(data){
         data.Close = parseFloat(data.Close)
         data.Open = parseFloat(data.Open)
@@ -23,27 +22,24 @@ d3.json(jsonFileURL).then(function(data) {
 
  console.log(data);
 
-//////////////////ADD ,'1Y'
-
- candlystick(currentTicker,data);
- // Function to handle button clicks on the graph
- document.querySelectorAll('.time-button').forEach(button => {
-   button.addEventListener('click', function() {
-     this.classList.toggle('active'); // Toggle 'active' class
-   });
- });
+    candlystick(currentTicker,'1Y',data);
+      // Function to handle button clicks on the graph
+      document.querySelectorAll('.time-button').forEach(button => {
+        button.addEventListener('click', function() {
+          this.classList.toggle('active'); // Toggle 'active' class
+        });
+      });
   
+      // Function to update the graph data based on the selected time period
+     // function updateGraph(timePeriod) {
+        // Add your logic here to update the graph data
+        // This function will be triggered when a button on the graph is clicked
+     //   console.log('Updating graph for:', timePeriod);
+     // }
 
-      // // Function to update the graph data based on the selected time period
-      // function updateGraph(timePeriod) {
-      //   // Add your logic here to update the graph data
-      //   // This function will be triggered when a button on the graph is clicked
-      //   console.log('Updating graph for:', timePeriod);
-      // }
+      function handleButtonClick(arg){
 
-      //function handleButtonClick(arg){
-
-      // }
+      }
 
 
 ////////////////////////////
@@ -51,11 +47,11 @@ d3.json(jsonFileURL).then(function(data) {
 
 
     // Example: Display data in the console
-for (i=0; i < data.length; i++){
+// for (i=0; i < data.length; i++){
 
-Tickers.push(data[i]);
+// Tickers.push(data[i]);
 
-}
+// }
 
 //////////////////////
 
@@ -84,6 +80,18 @@ d3.json(json_news).then((newsdata) => {
   console.error("Error loading JSON News file:", error);
 });
 
+
+
+
+// function Ticker_Selection(TCKR){
+
+//     if (data.ticker == TCKR){
+//         return data
+//     }
+
+
+// }
+
 function dateChange(str){
   // Your dummy data for the graph (replace with your actual data)
   if(str == '1D'){
@@ -108,12 +116,9 @@ function dateChange(str){
 
 }
 
-
-///////////add dateRange
-function candlystick(selectedvalue, data) {
-  //////////////////let parDate = dateChange(dateRange);
-  let filter_data2 = data.filter((data) => data.Ticker == selectedvalue);
-  ////let filter_data2=data.filter((data) => data.Ticker == selectedvalue && data.Date >= parDate)
+function candlystick(selectedvalue,dateRange, data){
+    let parDate = dateChange(dateRange);
+    let filter_data2=data.filter((data) => data.Ticker == selectedvalue && data.Date >= parDate)
 
   let Tickers_dates = [];
   let Ticker_High = [];
@@ -122,10 +127,13 @@ function candlystick(selectedvalue, data) {
   let Ticker_Close = [];
   let Ticker_Volume = [];
 
+
   let Ticker_50DayMA = []; // Array to hold 5-day moving average data
   let Ticker_200DayMA = []; // Array to hold 5-day moving average data
 
 
+  
+    console.log(filter_data2)
   for (let i = 0; i < filter_data2.length; i++) {
       Tickers_dates.push(filter_data2[i].Date);
       Ticker_Close.push(filter_data2[i].Close);
@@ -156,7 +164,12 @@ function candlystick(selectedvalue, data) {
 
   var layout = {
       dragmode: 'zoom',
-      showlegend: false,
+      showlegend: true,
+      legend: {
+          x: 0,
+          y: 1,
+          orientation: 'h'
+      },
       xaxis: {
           rangeslider: {
               visible: false
@@ -273,10 +286,12 @@ function candlystick(selectedvalue, data) {
 
 
 // Calling existing "optionChanged" function from HTML class to pass selected value through all my 3 functions (bubble,bar and dinfo functions)
-function optionChanged(selectedvalue) {
+function optionChanged(selectedvalue,dateStr) {
+  console.log(selectedvalue)
+  currentTicker=selectedvalue
   d3.json(jsonFileURL).then((data) => {
       // Passing user selected value from the drop down and the data through each function to populate the graphs dynamically 
-      candlystick(selectedvalue, data);
+      candlystick(selectedvalue,dateStr, data)
   });
 
   d3.json(json_news).then((newsdata) => {
@@ -284,44 +299,8 @@ function optionChanged(selectedvalue) {
       tickernews(selectedvalue, newsdata);
   });
 }
-    /////////////////////////////////////////
 
-// // Tickers= []
-// let Article_Title = []
-// let Article_Summarys = []
-// let Article_URL = []
-// // Use d3.json() to load the JSON file
-// d3.json(json_news).then(function(data) {
-//     // The ‘data’ variable now contains the parsed JSON data
-//     for(let i=0; i< data.length; i++) {
-
-//       Article_Title.push(data[i]["Title"]);
-//       Article_Summarys.push(data[i]["Summary"]);
-//       Article_URL.push(data[i]["URL"]);
-  
-
-//     }
-
-//     const existingArticleList = d3.select("#article-list");
-
-//     // Append titles and summaries to the existing article list
-//     for (let i = 0; i < Article_Title.length; i++) {
-//       const listItem = existingArticleList.append("li");
-//       const link = listItem.append("a").attr("href", Article_URL[i]).attr("target", "_blank").text(`${Article_Title[i]}: `);
-//       listItem.append("span").text(Article_Summarys[i]);
-//   }
-
-//     console.log(data)
-
-
-
-// })
-
-
-
-    /////////////////////////////////////////
-
-    function tickernews(selectedvalue, data_news) {
+function tickernews(selectedvalue, data_news) {
       
       // Clear existing articles before populating with new data
       d3.select("#article-list").html("");
@@ -350,10 +329,9 @@ function optionChanged(selectedvalue) {
         const existingArticleList = d3.select("#article-list");
         // Add your logic for appending articles to the existing article list if needed
 
-    // Append titles, summaries, and images to the existing article list
-    for (let i = 0; i < Article_Title.length; i++) {
-        const listItem = existingArticleList.append("li");
-
+           // Append titles and summaries to the existing article list
+      for (let i = 0; i < Article_Title.length; i++) {
+          const listItem = existingArticleList.append("li");
         // Create an image element
         const image = listItem.append("img")
         .attr("src", Article_Image[i]) // Set image source to URL from JSON data
@@ -379,12 +357,18 @@ function optionChanged(selectedvalue) {
        // .style("display", "block") // Set the display to block for new line
         .text("Read more"); // Set the link text
   }
-}
+
+
+
+    }
+
+      
+  
+    function updateDate(dateStr){
+      d3.json(jsonFileURL).then((data) => {
     
-function updateDate(dateStr){
-  d3.json(jsonFileURL).then((data) => {
-
-  candlystick(currentTicker,dateStr, data)
-
-  });
-}
+      candlystick(currentTicker,dateStr, data)
+    
+      });
+    }
+    
