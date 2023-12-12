@@ -87,15 +87,29 @@ Tickers.push(data[i]);
 
 
 
+function dateChange(str){
+  // Your dummy data for the graph (replace with your actual data)
+  if(str == '1D'){
+   return '2023-11-28'
+  }
+  
+  else if(str == '5D'){
+  return '2023-11-23'
+  }
 
-// function Ticker_Selection(TCKR){
+  else if(str == '1M'){
+  return '2023-10-28' 
+  }
 
-//     if (data.ticker == TCKR){
-//         return data
-//     }
+  else if(str == '6M'){
+  return '2023-05-28'
+  }
 
+  else {
+  return '2022-11-28'
+  }
 
-// }
+}
 
 
 
