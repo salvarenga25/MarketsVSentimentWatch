@@ -31,32 +31,17 @@ d3.json(jsonFileURL).then(function(data) {
    });
  });
   
-  
 
+      // // Function to update the graph data based on the selected time period
+      // function updateGraph(timePeriod) {
+      //   // Add your logic here to update the graph data
+      //   // This function will be triggered when a button on the graph is clicked
+      //   console.log('Updating graph for:', timePeriod);
+      // }
 
+      // function handleButtonClick(arg){
 
-
-
-
-
-
-      // Function to handle button clicks on the graph
-      document.querySelectorAll('.time-button').forEach(button => {
-        button.addEventListener('click', function() {
-          this.classList.toggle('active'); // Toggle 'active' class
-        });
-      });
-  
-      // Function to update the graph data based on the selected time period
-      function updateGraph(timePeriod) {
-        // Add your logic here to update the graph data
-        // This function will be triggered when a button on the graph is clicked
-        console.log('Updating graph for:', timePeriod);
-      }
-
-      function handleButtonClick(arg){
-
-      }
+      // }
 
 
 ////////////////////////////
