@@ -113,6 +113,7 @@ function dateChange(str){
 function candlystick(selectedvalue, data) {
   //////////////////let parDate = dateChange(dateRange);
   let filter_data2 = data.filter((data) => data.Ticker == selectedvalue);
+  ////let filter_data2=data.filter((data) => data.Ticker == selectedvalue && data.Date >= parDate)
 
   let Tickers_dates = [];
   let Ticker_High = [];
