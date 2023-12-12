@@ -189,8 +189,13 @@ function candlystick(selectedvalue,dateRange, data){
           }
       },
       title: {
-          text: `Candlestick Chart for ${selectedvalue}`
-      }
+        text: `Candlestick Chart for ${selectedvalue}`,
+        font: {
+            family: 'Arial Black, sans-serif',
+            size: 18,
+            color: 'black',
+            weight: 'bold' // Set the font weight to bold for the title
+        }}
   
       
   };
@@ -267,8 +272,14 @@ function candlystick(selectedvalue,dateRange, data){
           side: 'right'
       },
       title: {
-        text: `Stock Volume for ${selectedvalue}`
-    }
+        text: `Stock Volume for ${selectedvalue}`,
+        font: {
+          family: 'Arial Black, sans-serif',
+          size: 18,
+          color: 'black',
+          weight: 'bold' // Set the font weight to bold for the title
+      }}
+    
   };
   dataCandlestick.push(trace50DayMA,trace200DayMA);
 
