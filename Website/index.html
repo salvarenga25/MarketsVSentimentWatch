@@ -25,6 +25,8 @@
       margin: 20px;
     }
 
+    
+
     /* Style for buttons */
     .btn-custom {
       background-color: white;
@@ -33,6 +35,13 @@
     }
 
     .btn-custom.active {
+      background-color: blue;
+      color: white;
+      border-color: blue;
+    }
+
+    /* Style for active time buttons */
+    .active-time-button {
       background-color: blue;
       color: white;
       border-color: blue;
@@ -258,23 +267,19 @@
   function handleButtonClick(button) {
     const tickerButtons = document.querySelectorAll('.ticker-button');
     tickerButtons.forEach(btn => {
-      if (btn !== button) {
-        btn.classList.remove('active');
-      }
+      btn.classList.remove('active');
     });
     button.classList.toggle('active');
   }
 
-  //handles time buttons
-  function handleButtonClick2(button) {
-    const timeButtons = document.querySelectorAll('.time-button');
-    timeButtons.forEach(btn => {
-      if (btn !== button) {
-        btn.classList.remove('active');
+    //handles time buttons
+    function handleButtonClick2(button) {
+        const timeButtons = document.querySelectorAll('.time-button');
+        timeButtons.forEach(btn => {
+          btn.classList.remove('active');
+        });
+        button.classList.toggle('active');
       }
-    });
-    button.classList.toggle('active');
-  }
 
   // Function to set the "AAL" button as active initially
   function setActiveButton() {
