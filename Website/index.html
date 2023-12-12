@@ -254,29 +254,25 @@
 
 
 <script>
+  //handles ticker buttons
   function handleButtonClick(button) {
-    // Check if the button is a time-button
-    if (button.classList.contains('time-button')) {
-      // Get all buttons with the class 'time-button'
-      const timeButtons = document.querySelectorAll('.time-button');
-      // Loop through each time button and remove the 'active' class
-      timeButtons.forEach(btn => {
-        if (btn !== button) {
-          btn.classList.remove('active');
-        }
-      });
-    } else {
-      // Get all buttons with the class 'btn-custom'
-      const customButtons = document.querySelectorAll('.btn-custom');
-      // Loop through each custom button and remove the 'active' class
-      customButtons.forEach(btn => {
-        if (btn !== button) {
-          btn.classList.remove('active');
-        }
-      });
-    }
+    const tickerButtons = document.querySelectorAll('.ticker-button');
+    tickerButtons.forEach(btn => {
+      if (btn !== button) {
+        btn.classList.remove('active');
+      }
+    });
+    button.classList.toggle('active');
+  }
 
-    // Toggle 'active' class for the clicked button
+  //handles time buttons
+  function handleButtonClick2(button) {
+    const timeButtons = document.querySelectorAll('.time-button');
+    timeButtons.forEach(btn => {
+      if (btn !== button) {
+        btn.classList.remove('active');
+      }
+    });
     button.classList.toggle('active');
   }
 
