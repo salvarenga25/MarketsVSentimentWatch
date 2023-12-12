@@ -85,7 +85,13 @@ Tickers.push(data[i]);
     console.error("Error loading JSON file:", error);
 });
 
-
+d3.json(json_news).then((newsdata) => {
+  // Passing user selected value from the drop down and the data through each function to populate the graphs dynamically 
+  tickernews(currentTicker, newsdata);
+}).catch(function(error) {
+  // Handle errors, if any
+  console.error("Error loading JSON News file:", error);
+});
 
 function dateChange(str){
   // Your dummy data for the graph (replace with your actual data)
