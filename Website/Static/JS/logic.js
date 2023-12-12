@@ -23,7 +23,6 @@ d3.json(jsonFileURL).then(function(data) {
  console.log(data);
 
     candlystick(currentTicker,'1Y',data);
-
       // Function to handle button clicks on the graph
       document.querySelectorAll('.time-button').forEach(button => {
         button.addEventListener('click', function() {
@@ -71,6 +70,14 @@ d3.json(jsonFileURL).then(function(data) {
 }).catch(function(error) {
     // Handle errors, if any
     console.error("Error loading JSON file:", error);
+});
+
+d3.json(json_news).then((newsdata) => {
+  // Passing user selected value from the drop down and the data through each function to populate the graphs dynamically 
+  tickernews(currentTicker, newsdata);
+}).catch(function(error) {
+  // Handle errors, if any
+  console.error("Error loading JSON News file:", error);
 });
 
 
