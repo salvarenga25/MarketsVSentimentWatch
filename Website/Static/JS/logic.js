@@ -22,10 +22,14 @@ d3.json(jsonFileURL).then(function(data) {
 
 
  console.log(data);
-
-    candlystick("COST",data)
- 
-
+//ADD ,'1Y'
+ candlystick(currentTicker,data);
+ // Function to handle button clicks on the graph
+ document.querySelectorAll('.time-button').forEach(button => {
+   button.addEventListener('click', function() {
+     this.classList.toggle('active'); // Toggle 'active' class
+   });
+ });
   
   
 
