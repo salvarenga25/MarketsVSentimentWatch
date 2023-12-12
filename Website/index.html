@@ -25,6 +25,8 @@
       margin: 20px;
     }
 
+    
+
     /* Style for buttons */
     .btn-custom {
       background-color: white;
@@ -33,6 +35,13 @@
     }
 
     .btn-custom.active {
+      background-color: blue;
+      color: white;
+      border-color: blue;
+    }
+
+    /* Style for active time buttons */
+    .active-time-button {
       background-color: blue;
       color: white;
       border-color: blue;
@@ -151,13 +160,13 @@
             <h3 class="panel-title">Tickers</h3>
           </div>
           <div id="sample-metadata" class="panel-body">
-            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this); optionChanged('AAL','1Y')">AAL</button>
-            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this); optionChanged('COST','1Y')">COST</button>
-            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this); optionChanged('DAL','1Y')">DAL</button>
-            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this); optionChanged('WMT','1Y')">WMT</button>
-            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this); optionChanged('SP500','1Y')">S&P500</button>
-            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this); optionChanged('NASDAQ','1Y')">NASDAQ</button>
-            <button class="btn btn-custom btn-sm" onclick="handleButtonClick(this); optionChanged('NYSE','1Y')">NYSE</button>
+            <button class="btn btn-custom btn-sm ticker-button" onclick="handleButtonClick(this); optionChanged('AAL','1Y')">AAL</button>
+            <button class="btn btn-custom btn-sm ticker-button" onclick="handleButtonClick(this); optionChanged('COST','1Y')">COST</button>
+            <button class="btn btn-custom btn-sm ticker-button" onclick="handleButtonClick(this); optionChanged('DAL','1Y')">DAL</button>
+            <button class="btn btn-custom btn-sm ticker-button" onclick="handleButtonClick(this); optionChanged('WMT','1Y')">WMT</button>
+            <button class="btn btn-custom btn-sm ticker-button" onclick="handleButtonClick(this); optionChanged('SP500','1Y')">S&P500</button>
+            <button class="btn btn-custom btn-sm ticker-button" onclick="handleButtonClick(this); optionChanged('NASDAQ','1Y')">NASDAQ</button>
+            <button class="btn btn-custom btn-sm ticker-button" onclick="handleButtonClick(this); optionChanged('NYSE','1Y')">NYSE</button>
           </div>
         </div>
 
@@ -166,11 +175,11 @@
             <h4 class="panel-title">Timeframe</h4>
           </div>
           <div id="days" class="panel-body">
-            <button class="btn btn-custom btn-sm time-button" onclick="handleButtonClick(this); updateDate('1D')">1D</button>
-            <button class="btn btn-custom btn-sm time-button" onclick="handleButtonClick(this); updateDate('5D')">5D</button>
-            <button class="btn btn-custom btn-sm time-button" onclick="handleButtonClick(this); updateDate('1M')">1M</button>
-            <button class="btn btn-custom btn-sm time-button" onclick="handleButtonClick(this); updateDate('6M')">6M</button>
-            <button class="btn btn-custom btn-sm time-button" onclick="handleButtonClick(this); updateDate('1Y')">1Y</button>
+            <button class="btn btn-custom btn-sm time-button" onclick="handleButtonClick2(this); updateDate('1D')">1D</button>
+            <button class="btn btn-custom btn-sm time-button" onclick="handleButtonClick2(this); updateDate('5D')">5D</button>
+            <button class="btn btn-custom btn-sm time-button" onclick="handleButtonClick2(this); updateDate('1M')">1M</button>
+            <button class="btn btn-custom btn-sm time-button" onclick="handleButtonClick2(this); updateDate('6M')">6M</button>
+            <button class="btn btn-custom btn-sm time-button" onclick="handleButtonClick2(this); updateDate('1Y')">1Y</button>
           </div>
         </div>
 
@@ -254,31 +263,23 @@
 
 
 <script>
+  //handles ticker buttons
   function handleButtonClick(button) {
-    // Check if the button is a time-button
-    if (button.classList.contains('time-button')) {
-      // Get all buttons with the class 'time-button'
-      const timeButtons = document.querySelectorAll('.time-button');
-      // Loop through each time button and remove the 'active' class
-      timeButtons.forEach(btn => {
-        if (btn !== button) {
-          btn.classList.remove('active');
-        }
-      });
-    } else {
-      // Get all buttons with the class 'btn-custom'
-      const customButtons = document.querySelectorAll('.btn-custom');
-      // Loop through each custom button and remove the 'active' class
-      customButtons.forEach(btn => {
-        if (btn !== button) {
-          btn.classList.remove('active');
-        }
-      });
-    }
-
-    // Toggle 'active' class for the clicked button
+    const tickerButtons = document.querySelectorAll('.ticker-button');
+    tickerButtons.forEach(btn => {
+      btn.classList.remove('active');
+    });
     button.classList.toggle('active');
   }
+
+    //handles time buttons
+    function handleButtonClick2(button) {
+        const timeButtons = document.querySelectorAll('.time-button');
+        timeButtons.forEach(btn => {
+          btn.classList.remove('active');
+        });
+        button.classList.toggle('active');
+      }
 
   // Function to set the "AAL" button as active initially
   function setActiveButton() {
@@ -286,7 +287,7 @@
       handleButtonClick(AALButton);
 
       const oneYearButton = document.querySelector('.time-button:nth-child(5)'); // Selects the fifth button with class 'time-button' (1Y button)
-      handleButtonClick(oneYearButton);
+      handleButtonClick2(oneYearButton);
   }
 
   // Triggering the setActiveButton function after the document has loaded
@@ -301,49 +302,6 @@
       })
       .catch(error => console.error('Error fetching data:', error));
 
-    // // Function to create and display article items with images
-    // function displayArticles(tickerData) {
-    //   const articleList = document.getElementById('article-list');
-      
-    //   // Loop through each entry in the ticker data
-    //   tickerData.forEach(function(entry) {
-    //     // Create list item
-    //     const listItem = document.createElement('li');
-
-    //     // Create image element
-    //     const img = document.createElement('img');
-    //     img.src = entry.Banner_Image; // Set image source to Banner_Image URL
-    //     img.alt = 'Banner Image'; // Set alt attribute for accessibility
-        
-    //     // Append image to list item
-    //     listItem.appendChild(img);
-
-    //     // Create title element
-    //     const title = document.createElement('h4');
-    //     title.textContent = entry.Title; // Set title text
-        
-    //     // Append title to list item
-    //     listItem.appendChild(title);
-
-    //     // Create summary element
-    //     const summary = document.createElement('p');
-    //     summary.textContent = entry.Summary; // Set summary text
-        
-    //     // Append summary to list item
-    //     listItem.appendChild(summary);
-
-    //     // Create link element
-    //     const link = document.createElement('a');
-    //     link.href = entry.URL; // Set link href to URL
-    //     link.textContent = 'Read more'; // Set link text
-        
-    //     // Append link to list items
-    //     listItem.appendChild(link);
-
-    //     // Append list item to article list
-    //     articleList.appendChild(listItem);
-    //   });
-    // }
 </script>
 
 
