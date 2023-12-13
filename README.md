@@ -47,7 +47,7 @@ $ pip install Flask-CORS
 
 # Front End:
 
-![Alt text](image-25.png)
+![Alt text](image-27.png)
 
 ![Alt text](image-26.png)
 
