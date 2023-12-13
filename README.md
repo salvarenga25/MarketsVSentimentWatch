@@ -53,7 +53,7 @@ $ pip install Flask-CORS
 
 ![Alt text](image-14.png)
 
-![Alt text](image-16.png)
+![Alt text](image-24.png)
 
 
 ### Limitation: 
