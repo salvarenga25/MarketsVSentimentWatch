@@ -16,13 +16,14 @@ for the same tech companies.
 We used the Flask Framework to deploy the Web Application
 ***
 Installing Flask and CORS
-```
-![Alt text](image-2.png)
-![Alt text](image-4.png)
+
+![Alt text](image-7.png)
+
+![Alt text](image-5.png)
 
 $ pip install Flask
 $ pip install Flask-CORS
-```
+
 C:\Users\mklut\OneDrive\Documents\GitHub_Projects\MarketsVSentimentWatch\Images\Creating_Function_to_Read_CSV_Files.png
 
 ### Limitation: 
