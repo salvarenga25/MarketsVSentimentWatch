@@ -5,7 +5,8 @@ for the same tech companies.
 Images\Importing_Necessary_Libraries.png
 
 - Tickers Selected: COST, AAL, DAL, WMT, NYSE, S&P500 
-(Images\Graphs_with_Tickers.PNG)
+
+![Alt text](Images\Graphs_with_Tickers.PNG)
 
 
 ## Installation
