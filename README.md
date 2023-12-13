@@ -20,10 +20,10 @@ Installing Flask and CORS
 ![Alt text](image-7.png)
 
 ![Alt text](image-5.png)
-
+``
 $ pip install Flask
 $ pip install Flask-CORS
-
+``
 C:\Users\mklut\OneDrive\Documents\GitHub_Projects\MarketsVSentimentWatch\Images\Creating_Function_to_Read_CSV_Files.png
 
 ### Limitation: 
