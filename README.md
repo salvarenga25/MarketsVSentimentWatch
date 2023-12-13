@@ -7,7 +7,7 @@
 for the same tech companies.  
 
 
-# Data Sources & Coding Languages
+# Data Sources, Languages & Questions to Answer
 
 ![Alt text](image.png)
 
