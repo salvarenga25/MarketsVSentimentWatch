@@ -59,5 +59,5 @@ $ pip install Flask-CORS
 ### Limitation: 
 We couldn't find a data source that could present old articles that relate to stocks prices.  This is why our graphs focus on 1 year of data.
 
-We also faced request limits when using an api for articles that showcase in real time the sentiment of the market.  With more funding for a premium plan an ETL pipeline could've been finished.
+We also faced request limits when using an api for articles that showcase in real time the sentiment of the market.  With more funding for a premium plan an ETL pipeline updated live could've been finished.
 
