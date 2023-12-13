@@ -57,5 +57,5 @@ $ pip install Flask-CORS
 
 
 ### Limitation: 
-We couldn't find a data source that could present old articles that could relate to stocks prices
+We couldn't find a data source that could present old articles that could relate to stocks prices.  This is why our graphs focus on 1 year of data.
 
