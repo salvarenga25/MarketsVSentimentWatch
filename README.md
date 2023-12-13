@@ -3,14 +3,13 @@
 # Markets VS Sentiment Watch
 
 
-
 'Market vs Sentiment' is a project that will explore how news articles can affect the value of a particular stock in a positive or negative way. This project analyzes the behavoir of different stocks and indexes from November 2022 - November 2023
 for the same tech companies.  
-Images\Importing_Necessary_Libraries.png
+![Alt text](image-1.png)
 
 - Tickers Selected: COST, AAL, DAL, WMT, NYSE, S&P500 
 
-![Alt text](Images\Graphs_with_Tickers.PNG)
+
 
 
 ## Installation
@@ -18,8 +17,8 @@ We used the Flask Framework to deploy the Web Application
 ***
 Installing Flask and CORS
 ```
-![Example Image](Images\End_Point(CSVtoJSON).png)
-![Example Image](Images\End_Point_(News).png)
+![Alt text](image-2.png)
+![Alt text](image-4.png)
 
 $ pip install Flask
 $ pip install Flask-CORS
