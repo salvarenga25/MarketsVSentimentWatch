@@ -20,17 +20,36 @@ Installing Flask and CORS
 ![Alt text](image-7.png)
 
 ![Alt text](image-5.png)
+
 ``
 $ pip install Flask
 $ pip install Flask-CORS
 ``
-C:\Users\mklut\OneDrive\Documents\GitHub_Projects\MarketsVSentimentWatch\Images\Creating_Function_to_Read_CSV_Files.png
+
+![Alt text](image-8.png)
+
+![Alt text](image-9.png)
+
+# Front End:
+
+![Alt text](image-10.png)
+
+![Alt text](image-11.png)
+
+![Alt text](image-14.png)
+
+![Alt text](image-16.png)
+
+# Back End:
+
+![Alt text](image-12.png)
+
+![Alt text](image-13.png)
+
+![Alt text](image-15.png)
+
+
 
 ### Limitation: 
 We couldn't find a data source that could present old articles that could relate to stocks prices
 
-
-
-
-
-![Example Image](Images\Full_site.PNG)
